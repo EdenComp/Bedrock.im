@@ -27,5 +27,9 @@ yarn install
 
 This project uses:
 
-- TBD
+- [TypeScript](https://www.typescriptlang.org/) as the main language for the project
+- [Vite](https://vitejs.dev/) as the build tool
+- [SWC](https://swc.rs/) as the TypeScript compiler
+- [React](https://reactjs.org/) as the main library for the user interface
+- [TailwindCSS](https://tailwindcss.com/) as the utility-first CSS framework
 
