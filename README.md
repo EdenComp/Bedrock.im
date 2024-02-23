@@ -18,7 +18,7 @@ This project uses [yarn](https://yarnpkg.com/) as package manager. You can insta
 npm install -g yarn
 ```
 
-### Depedenencies
+### Dependencies
 
 To install the project dependencies, run the following command:
 ```bash
