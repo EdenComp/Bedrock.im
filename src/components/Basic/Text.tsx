@@ -5,7 +5,7 @@ interface TitleProps {
   className?: string;
 }
 
-export default function Text({ children, className = 'size-2xl font-normal' }: TitleProps): ReactElement {
+export default function Text({ children, className = '' }: TitleProps): ReactElement {
   return (
     <h1 className={className}>
       {children}

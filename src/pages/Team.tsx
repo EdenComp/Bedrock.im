@@ -1,6 +1,6 @@
-import Layout from "../components/Layout.tsx";
+import Layout from "../components/Landing/Layout.tsx";
 import type { ReactElement } from 'react';
-import Text from "../components/basic/Text.tsx";
+import Text from "../components/Basic/Text.tsx";
 
 export default function Team(): ReactElement {
   return (

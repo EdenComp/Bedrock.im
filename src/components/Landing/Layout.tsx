@@ -1,6 +1,6 @@
-import NavBar from "./basic/NavBar.tsx";
+import NavBar from "../Basic/NavBar.tsx";
 import type { ReactElement } from 'react';
-import Footer from "./basic/Footer.tsx";
+import Footer from "../Basic/Footer.tsx";
 
 export default function Layout({ children }: { children: ReactElement[] | ReactElement }): ReactElement {
   return (
