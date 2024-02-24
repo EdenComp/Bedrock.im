@@ -1,7 +1,7 @@
 import {useAccount, useConnect, useDisconnect} from "wagmi";
 
 import {mainnet} from "viem/chains";
-import {wagmiConfig} from "../../../../utils/Providers.tsx";
+import {wagmiConfig} from "../../../../utils/config";
 import {useState} from "react";
 
 export default function MetamaskButton() {
@@ -16,7 +16,7 @@ export default function MetamaskButton() {
   return (
     <div className={'relative h-full'}>
     <button type="button"
-            className={`text-white h-full font-medium rounded-lg text-sm px-4 py-2 text-center bg-blue-600 disabled:bg-gray-500 disabled:cursor-not-allowed ${account?.isConnected && isOpen ? 'rounded-r-none hover:bg-blue-700' : ''}`}
+            className={`text-text-1 h-full font-medium rounded-lg text-sm px-4 py-2 text-center disabled:text-opacity-20 disabled:cursor-not-allowed bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3 ${account?.isConnected && isOpen ? 'rounded-r-none' : ''}`}
             disabled={account.isConnecting}
             onClick={() => {
               if (!account.isConnected) {
