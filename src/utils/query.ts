@@ -1,5 +1,5 @@
 import {post} from "aleph-sdk-ts/dist/messages";
-import {alephApiServer, alephChannel, alephPostType} from "../utils/config.ts";
+import {alephChannel, alephPostType} from "../utils/config.ts";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {ETHAccount} from "aleph-sdk-ts/dist/accounts/ethereum";
 
@@ -24,7 +24,6 @@ export const useGetPosts = ({ page = 1, pagination = 10 }: GetPostsRequest) => {
         page,
         pagination,
         types: alephPostType,
-        APIServer: alephApiServer,
       })
     }
   })
@@ -39,7 +38,6 @@ export const useCreatePost = () => {
         account: account,
         channel: alephChannel,
         postType: alephPostType,
-        APIServer: alephApiServer,
       })
   })
 }

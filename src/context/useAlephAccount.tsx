@@ -5,14 +5,20 @@ import {
   useContext, useEffect,
   useState,
 } from "react";
-import {useAccount} from "wagmi";
+import {useAccount, useDisconnect} from "wagmi";
 import {
   ETHAccount,
   GetAccountFromProvider
 } from 'aleph-sdk-ts/dist/accounts/ethereum'
+import {loadAggregate} from "../utils/aleph.ts";
+
+export interface AlephAccountAggregate {
+  items: string[]
+}
 
 export interface AlephAccount {
-  account: ETHAccount | null
+  account: ETHAccount
+  data: AlephAccountAggregate
 }
 
 const AlephContext = createContext<AlephAccount | null>(null);
@@ -20,12 +26,15 @@ const AlephContext = createContext<AlephAccount | null>(null);
 export const AlephContextProvider = ({ children }: PropsWithChildren) => {
   const account = useAccount()
   const [alephAccount, setAlephAccount] = useState<AlephAccount | null>(null)
+  const { disconnect } = useDisconnect()
 
   const connectAleph = useCallback(async () => {
     try {
       const account = await GetAccountFromProvider(window.ethereum)
-      setAlephAccount({ account })
+      const data = await loadAggregate(account)
+      setAlephAccount({ account, data })
     } catch (e) {
+      disconnect()
       console.error(e)
     }
   }, []);
