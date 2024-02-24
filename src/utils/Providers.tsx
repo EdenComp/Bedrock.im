@@ -5,7 +5,7 @@ import {injected} from "wagmi/connectors";
 import {mainnet} from "viem/chains";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
-const config = createConfig({
+export const wagmiConfig = createConfig({
   chains: [mainnet],
   connectors: [injected({
     target() {
@@ -24,7 +24,7 @@ const queryClient = new QueryClient()
 
 export default function Providers({ children }: PropsWithChildren) {
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
         <AlephContextProvider>
           {children}
