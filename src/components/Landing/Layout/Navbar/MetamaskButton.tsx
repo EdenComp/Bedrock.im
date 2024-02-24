@@ -1,7 +1,7 @@
 import {useAccount, useConnect, useDisconnect} from "wagmi";
 
 import {mainnet} from "viem/chains";
-import {wagmiConfig} from "../../../../utils/Providers.tsx";
+import {wagmiConfig} from "../../../../utils/config";
 import {useState} from "react";
 
 export default function MetamaskButton() {
