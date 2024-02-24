@@ -1,5 +1,5 @@
 import Layout from "../components/Landing/Layout.tsx";
-import type { ReactElement } from 'react';
+import {ReactElement} from 'react';
 import Text from "../components/Basic/Text.tsx";
 import MetaMaskButton from "../components/MetamaskButton.tsx";
 
