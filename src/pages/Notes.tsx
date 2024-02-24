@@ -1,11 +1,10 @@
-import Layout from '../components/Landing/Layout.tsx'
 import { ReactElement } from 'react'
-import NoteEditor from '../components/Editor/NoteEditor.tsx'
+import Sidebar from "../components/Product/Sidebar.tsx";
 
 export default function Notes(): ReactElement {
   return (
-    <Layout>
-      <NoteEditor />
-    </Layout>
+    <div className="min-w-screen min-h-screen bg-background-1">
+      <Sidebar />
+    </div>
   )
 }

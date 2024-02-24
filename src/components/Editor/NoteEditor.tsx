@@ -33,6 +33,7 @@ const NoteEditor: React.FC<Editor['props']> = (props) => {
   useEffect(() => localStorage.setItem('note', JSON.stringify(note)), [note])
 
   const {mutateAsync: createNoteAsync} = useCreatePost()
+
   const submitNote = useCallback(async () => {
     if (!alephAccount?.account) throw new Error('No Aleph account found')
     if (note.blocks.every(block => block.text === '')) throw new Error('Empty note')
