@@ -1,9 +1,7 @@
 import {useAccount} from "wagmi";
-import {useAlephAccount} from "../context/useAlephAccount.tsx";
 
 export default function MetaMaskButton() {
   const account = useAccount()
-  const alephAccount = useAlephAccount()
 
   return (
     <button
