@@ -7,7 +7,7 @@ export default function MetaMaskButton() {
 
   return (
     <button
-      disabled={account.isConnecting || !account.connector}
+      disabled={account.isConnecting || !account.connector || account.isConnected}
       onClick={() => account.connector?.connect()}
     >
       {account?.address}
