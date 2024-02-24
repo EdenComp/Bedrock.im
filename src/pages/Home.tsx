@@ -10,16 +10,16 @@ export default function Home(): ReactElement {
           users={users}
           titleComponent={
             <>
-              <h1 className="text-9xl font-extrabold text-white">
-                Bedrock.Im<br />
-                <span className="text-5xl font-bold leading-none">
+              <h1 className="text-9xl font-extrabold text-text-1">
+                Bedrock.im<br />
+                <span className="text-5xl font-bold leading-none text-text-2">
                   Welcome to your decentralized future.
                 </span>
               </h1>
             </>
           }
         />
-        <button className="bg-gray-800 text-white p-4 rounded-lg mb-20 w-1/4 mx-auto hover:bg-blue-700 transition-colors duration-300 ease-in-out transform hover:translate-y-0.5 hover:shadow-lg transition-transform">
+        <button className="bg-card text-text-1 p-4 rounded-lg mb-20 w-1/4 mx-auto transition-colors duration-300 hover:shadow-lg bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3">
           Get Started
         </button>
       </div>
