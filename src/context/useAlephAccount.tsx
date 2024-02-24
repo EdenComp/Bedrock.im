@@ -6,11 +6,13 @@ import {
   useState,
 } from "react";
 import {useAccount} from "wagmi";
-import {ETHAccount, getAccountFromProvider} from "@aleph-sdk/ethereum";
+import {
+  ETHAccount,
+  GetAccountFromProvider
+} from 'aleph-sdk-ts/dist/accounts/ethereum'
 
 export interface AlephAccount {
   account: ETHAccount | null
-  //client: AuthenticatedAlephHttpClient
 }
 
 const AlephContext = createContext<AlephAccount | null>(null);
@@ -21,8 +23,7 @@ export const AlephContextProvider = ({ children }: PropsWithChildren) => {
 
   const connectAleph = useCallback(async () => {
     try {
-      const account = await getAccountFromProvider(window.ethereum)
-      //const client = new AuthenticatedAlephHttpClient(undefined, account)
+      const account = await GetAccountFromProvider(window.ethereum)
       setAlephAccount({ account })
     } catch (e) {
       console.error(e)
