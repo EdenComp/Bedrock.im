@@ -1,5 +1,6 @@
-import type { ReactElement } from 'react';
-import MetamaskButton from "./Navbar/MetamaskButton.tsx";
+import type { ReactElement } from 'react'
+import MetamaskButton from './Navbar/MetamaskButton.tsx'
+import { useAlephAccount } from '../../../context/useAlephAccount.tsx'
 
 const NavBarTab = ({page}: any): ReactElement => {
   return (
@@ -19,8 +20,11 @@ export default function NavBar(): ReactElement {
     {name: 'Home', href: '/', current: true},
     {name: 'Documentation', href: '/documentation', current: false},
     {name: 'Pricing', href: '/pricing', current: false},
-    {name: 'Team', href: '/team', current: false },
+    {name: 'Team', href: '/team', current: false},
   ]
+
+  const alephAccount = useAlephAccount()
+  if (alephAccount?.account) pages.push({name: 'Notes', href: '/notes', current: false})
 
   return (
     <nav className="bg-background-2 fixed w-full z-20 top-0 start-0 border-b border-border-1">

@@ -1,8 +1,9 @@
 import Home from './pages/Home'
 import Documentation from './pages/Documentation'
 import Pricing from './pages/Pricing'
+import Notes from './pages/Notes'
 import Team from './pages/Team'
-import { Routes, Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/documentation" Component={Documentation} />
         <Route path="/pricing" Component={Pricing} />
         <Route path="/team" Component={Team} />
+        <Route path="/notes" Component={Notes} />
       </Routes>
     </>
   )
