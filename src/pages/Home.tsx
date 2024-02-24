@@ -20,7 +20,6 @@ export default function Home(): ReactElement {
             </>
           }
         />
-        <MetaMaskButton />
         <button className="bg-gray-800 text-white p-4 rounded-lg mb-20 w-1/4 mx-auto hover:bg-blue-700 transition-colors duration-300 ease-in-out transform hover:translate-y-0.5 hover:shadow-lg transition-transform">
           Get Started
         </button>
