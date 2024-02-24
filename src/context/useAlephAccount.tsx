@@ -2,7 +2,7 @@ import {
   createContext,
   PropsWithChildren,
   useCallback,
-  useContext,
+  useContext, useEffect,
   useState,
 } from "react";
 import {useAccount} from "wagmi";
@@ -26,6 +26,12 @@ export const AlephContextProvider = ({ children }: PropsWithChildren) => {
       console.error(e)
     }
   }, []);
+
+  useEffect(() => {
+    if (!account.isConnected) {
+      setAlephAccount(null);
+    }
+  }, [account]);
 
   if (!window.ethereum || !account.isConnected || alephAccount) {
     return (
