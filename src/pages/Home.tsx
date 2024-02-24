@@ -1,6 +1,7 @@
 import Layout from "../components/Landing/Layout.tsx";
 import type { ReactElement } from 'react';
 import {ContainerScroll} from "../components/ui/container-scroll-animation.tsx";
+import MetaMaskButton from "../components/MetamaskButton.tsx";
 
 export default function Home(): ReactElement {
   return (
@@ -23,6 +24,7 @@ export default function Home(): ReactElement {
           Get Started
         </button>
       </div>
+      <MetaMaskButton />
     </Layout>
   )
 }

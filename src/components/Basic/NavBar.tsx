@@ -1,6 +1,9 @@
 import type { ReactElement } from 'react';
+import {useAccount} from "wagmi";
 
 export default function NavBar(): ReactElement {
+  const account = useAccount()
+
   const pages = [
     { name: 'Home', href: '/', current: true },
     { name: 'Documentation', href: '/documentation', current: false },
@@ -15,9 +18,12 @@ export default function NavBar(): ReactElement {
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Bedrock.im</span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <button type="button" className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+          <button type="button" className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 disabled:bg-gray-500 disabled:cursor-not-allowed"
+                  disabled={account.isConnecting || !account.connector || account.isConnected}
+                  onClick={() => account.connector?.connect()}
+                  title={account?.address}>
             <img src={'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg'} alt={'Metamask'} className={'h-5 w-5 inline-block mr-2'} />
-            Metamask
+            {account.isConnected ? account.address?.slice(0, 6) + '...' + account.address?.slice(-4) : 'Connect'}
           </button>
           <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
             <span className="sr-only">Open main menu</span>
