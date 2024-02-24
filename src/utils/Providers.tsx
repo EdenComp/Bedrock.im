@@ -1,25 +1,9 @@
 import {PropsWithChildren} from "react";
 import {AlephContextProvider} from "../context/useAlephAccount.tsx";
-import {createConfig, http, WagmiProvider} from "wagmi";
-import {injected} from "wagmi/connectors";
-import {mainnet} from "viem/chains";
+import {WagmiProvider} from "wagmi";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {wagmiConfig} from "./config.ts";
 
-export const wagmiConfig = createConfig({
-  chains: [mainnet],
-  connectors: [injected({
-    target() {
-      return {
-        id: 'windowProvider',
-        name: 'Window Provider',
-        provider: window.ethereum,
-      }
-    }
-  })],
-  transports: {
-    [mainnet.id]: http(),
-  },
-})
 const queryClient = new QueryClient()
 
 export default function Providers({ children }: PropsWithChildren) {

@@ -4,15 +4,6 @@ import inject from '@rollup/plugin-inject'
 import {nodePolyfills} from "vite-plugin-node-polyfills";
 
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      plugins: [
-        inject({
-          "globalThis.Buffer": ["buffer", "Buffer"],
-        }),
-      ],
-    },
-  },
   plugins: [
     react(),
     nodePolyfills({
@@ -22,4 +13,20 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    host: '0.0.0.0'
+  },
+  define: {
+    'process.env': {},
+    global: 'window'
+  },
+  build: {
+    rollupOptions: {
+      plugins: [
+        inject({
+          "globalThis.Buffer": ["buffer", "Buffer"],
+        }),
+      ],
+    },
+  },
 })
