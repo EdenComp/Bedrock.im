@@ -19,6 +19,8 @@ export default {
         'solid-2': '#9A5CD0',
         'text-1': '#D19DFF',
         'text-2': '#ECD9FA',
+        'new': '#FF5555',
+        'changed': '#FFE777',
       }
     }
   },
