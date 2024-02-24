@@ -4,9 +4,9 @@ import Footer from "../Basic/Footer.tsx";
 
 export default function Layout({ children }: { children: ReactElement[] | ReactElement }): ReactElement {
   return (
-    <div>
+    <div className={`bg-gray-700 min-h-screen w-full`}>
       <NavBar />
-      <div className="justify-center items-center flex flex-col mt-20">
+      <div className="justify-center items-center flex flex-col pt-20 bg-gray-700 h-full w-full text-white">
         {children}
       </div>
       <Footer />
