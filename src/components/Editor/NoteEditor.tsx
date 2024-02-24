@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Editor, RawDraftContentState } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
@@ -16,24 +16,18 @@ const EncryptToggleButton: React.FC<EncryptToggleButtonProps> = ({onEncryptToggl
 
 
 const NoteEditor: React.FC<Editor['props']> = (props) => {
-  const savedNote = localStorage.getItem('note') || undefined
   // @ts-expect-error currently not used but will be really soon
   const savedEncryptState = localStorage.getItem('encrypt') === 'true'
-  const [note, setNote] = useState<RawDraftContentState | undefined>(savedNote && JSON.parse(savedNote))
+  const savedNote = localStorage.getItem('note')
+  const parsedSavedNote = savedNote !== null ? JSON.parse(savedNote) : undefined
 
   const handleSave = () => {
     localStorage.removeItem('note')
-    setNote(undefined)
   }
 
-  const handleEncryptToggle = (state: boolean) => {
-    localStorage.setItem('encrypt', state.toString())
-  }
+  const handleEncryptToggle = (state: boolean) => localStorage.setItem('encrypt', state.toString())
 
-  useEffect(() => {
-    if (note)
-      localStorage.setItem('note', JSON.stringify(note))
-  }, [note])
+  const handleNoteChange = (note: RawDraftContentState) => localStorage.setItem('note', JSON.stringify(note))
 
   return (
     <Editor
@@ -42,8 +36,8 @@ const NoteEditor: React.FC<Editor['props']> = (props) => {
         <EncryptToggleButton onEncryptToggle={handleEncryptToggle} />,
       ]}
       editorStyle={{width: '70vw'}}
-      onChange={state => setNote(state)}
-      contentState={note} {...props} />
+      onChange={handleNoteChange}
+      defaultContentState={parsedSavedNote} {...props} />
   )
 }
 
