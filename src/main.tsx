@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import Providers from "./utils/Providers.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>$
+  <React.StrictMode>
     <Providers>
       <BrowserRouter>
         <App />
