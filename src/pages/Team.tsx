@@ -1,48 +1,60 @@
 import Layout from "../components/Landing/Layout.tsx";
 import type { ReactElement } from 'react';
 
+const TeamCard = ({ profile, index }: { profile: any, index: number }): ReactElement => {
+  return (
+    <button onClick={() => window.open(profile.link, '_blank')} className="focus:outline-none" key={index}>
+      <div key={index}
+           className="border-gray-700 bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2 hover:scale-105">
+        <img alt={profile.name} className="w-full h-64 object-cover object-center" src={profile.photo}/>
+        <div className="p-6">
+          <h3 className="mb-4 text-2xl font-semibold">{profile.name}</h3>
+          <p className="mb-1 text-gray-400">{profile.role}</p>
+          <p className="text-gray-500">{profile.description}</p>
+        </div>
+      </div>
+    </button>
+  )
+}
+
 export default function Team(): ReactElement {
   const profiles = [
     {
       photo: "/placeholder.svg",
       name: "Florian Lauch",
       role: "Fullstack Engineer",
-      description: "Visionary leader with a passion for innovation and teamwork."
+      description: "Visionary leader with a passion for innovation and teamwork.",
+      link: 'https://github.com/EdenComp'
     },
     {
       photo: "/placeholder.svg",
       name: "Dorian Moy",
       role: "Fullstack Engineer",
-      description: "Technology enthusiast and problem solver."
+      description: "Technology enthusiast and problem solver.",
+      link: 'https://github.com/Croos3r'
     },
     {
       photo: "/placeholder.svg",
       name: "Tom Bariteau-Peter",
       role: "Fullstack Engineer",
-      description: "Creative mind with an eye for beautiful design."
+      description: "Creative mind with an eye for beautiful design.",
+      link: 'https://github.com/Tomi-Tom'
     }
   ]
 
   return (
     <Layout>
-        <div className="container px-4 space-y-12 md:space-y-16 lg:space-y-20">
-          <div className="space-y-2 text-center mt-12">
-            <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Bedrock Dev Team</h2>
-          </div>
-          <div className="grid max-w-sm gap-6 mx-auto lg:max-w-4xl lg:grid-cols-2 xl:grid-cols-3 lg:gap-8">
-            {profiles.map((profile) => (
-              <div className="flex flex-col items-stretch space-y-2 border rounded-xl overflow-hidden dark:border-0 bg-gray-900 border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out transform hover:-translate-y-5 transition-transform hover:scale-105">
-                <img alt="Avatar" className="aspect-[4/5] object-cover" height="500" src={profile.photo}
-                     width="400"/>
-                <div className="flex-1 p-4">
-                  <h3 className="font-bold">{profile.name}</h3>
-                  <p className="text-sm text-gray-500">{profile.role}</p>
-                  <p className="text-sm text-gray-500">{profile.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="container px-4">
+        <div className="mt-12 text-center">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Meet Our Team</h2>
+          <p className="mt-3 text-gray-600 dark:text-gray-400">We're a passionate team dedicated to building amazing products.</p>
         </div>
+        <div className="grid gap-8 mt-12 md:grid-cols-2 lg:grid-cols-3">
+          {profiles.map((profile, index) => (
+            <TeamCard profile={profile} index={index}/>
+          ))}
+        </div>
+      </div>
     </Layout>
   )
 }
