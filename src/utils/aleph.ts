@@ -5,51 +5,53 @@ import {
 } from "../context/useAlephAccount.tsx";
 import {alephAggregateKey, alephChannel, alephPostType} from "./config.ts";
 import {ETHAccount} from "aleph-sdk-ts/dist/accounts/ethereum";
+import {ResolvedNote} from "./types.ts";
 
-export const createNote = async (account: AlephAccount, content: unknown) => {
-  const newNote = await post.Publish({
-    account: account.account,
-    content,
+
+export const createNote = async ({ account, data: { items } }: AlephAccount, { content }: ResolvedNote) => {
+  const { item_hash } = await post.Publish({
+    account: account,
     channel: alephChannel,
     postType: alephPostType,
+    content,
   });
 
   await aggregate.Publish<AlephAccountAggregate>({
-    account: account.account,
+    account: account,
     content: {
-      items: [newNote.item_hash, ...account.data.items],
+      items: [item_hash, ...items],
     },
     key: alephAggregateKey,
     channel: alephChannel,
   });
 }
 
-export const updateNote = async (account: AlephAccount, hash: string, content: unknown) => {
-  const newNote = await post.Publish({
-    account: account.account,
-    content,
+export const updateNote = async ({ account }: AlephAccount, { content, hash }: ResolvedNote) => {
+  await post.Publish({
+    account,
     channel: alephChannel,
     postType: "amend",
     ref: hash,
+    content,
   });
+}
 
-  await aggregate.Publish<AlephAccountAggregate>({
-    account: account.account,
-    content: {
-      items: [newNote.item_hash, ...account.data.items],
-    },
-    key: alephAggregateKey,
+export const deleteNote = async ({ account }: AlephAccount, hash: string) => {
+  await post.Publish({
+    account: account,
+    content: {},
     channel: alephChannel,
+    postType: "delete",
+    ref: hash,
   });
 }
 
 export const loadAggregate = async (account: ETHAccount) => {
   try {
-    const data = await aggregate.Get<AlephAccountAggregate>({
+    return aggregate.Get<AlephAccountAggregate>({
       address: account.address,
       key: alephAggregateKey,
-    });
-    return data
+    })
   } catch (e: any) {
     if (e.response?.status === 404) {
       await aggregate.Publish<AlephAccountAggregate>({
