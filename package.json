@@ -10,15 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aleph-sdk/client": "^1.0.0-alpha.3",
-    "@aleph-sdk/ethereum": "^1.0.0-alpha.3",
-    "clsx": "^2.1.0",
-    "framer-motion": "^11.0.6",
-    "@metamask/detect-provider": "^2.0.0",
-    "@rollup/plugin-inject": "^5.0.5",
     "@tanstack/react-query": "^5.22.2",
     "aleph-sdk-ts": "^3.9.2",
-    "buffer": "^6.0.3",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.6",
     "react": "^18.2.0",

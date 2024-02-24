@@ -11,7 +11,7 @@ export default function Home(): ReactElement {
           titleComponent={
             <>
               <h1 className="text-9xl font-extrabold text-text-1">
-                Bedrock.Im<br />
+                Bedrock.im<br />
                 <span className="text-5xl font-bold leading-none text-text-2">
                   Welcome to your decentralized future.
                 </span>
