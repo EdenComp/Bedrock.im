@@ -1,10 +1,5 @@
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import rehypeRaw from "rehype-raw";
-import remarkRehype from "remark-rehype";
 import type { ReactElement } from "react";
+import MarkdownVisualiser from "./MardownVisualiser.tsx";
 import { LocalNote, NoteInput } from "../../utils/types.ts";
 
 interface BodyProps {
@@ -60,29 +55,8 @@ export default function Body({ notes, selectedNote, input, setInput }: BodyProps
             />
           </svg>
         </div>
-        <div className="relative text-text-2 text-2xl font-semibold w-full h-full text-center p-4 border-l border-b border-border-1  mx-auto max-w-1/3 overflow-y-auto transition-colors duration-300">
-          <Markdown
-            className="text-left break-all px-4 py-3 bg-background-2 hover:bg-interactive-1 h-full rounded-lg transition-colors duration-300 focus:bg-background-2"
-            remarkPlugins={[remarkGfm, remarkMath, remarkRehype]}
-            rehypePlugins={[rehypeKatex, rehypeRaw]}
-          >
-            {input.body}
-          </Markdown>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-10 h-10 absolute top-6 right-6 text-text-2 text-opacity-35 hover:text-opacity-100 transition-colors duration-300 hover:bg-interactive-1 hover:bg-opacity-100 rounded-lg p-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
-            />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-          </svg>
+        <div className="relative w-full h-full p-4 border-l border-b border-border-1 mx-auto max-w-1/3 overflow-y-auto transition-colors duration-300">
+          <MarkdownVisualiser rawMarkdown={"# Hello World!"} />
         </div>
       </div>
     </div>

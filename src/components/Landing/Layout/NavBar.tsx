@@ -16,7 +16,7 @@ const NavBarTab = ({ page }: any): ReactElement => {
   );
 };
 
-export default function NavBar(): ReactElement {
+export default function NavBar({ brandName = "Bedrock.im" }: { brandName?: string }): ReactElement {
   const pages = [
     { name: "Home", href: "/", current: true },
     { name: "Pricing", href: "/pricing", current: false },
@@ -31,7 +31,7 @@ export default function NavBar(): ReactElement {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="/logo-viol.png" className="h-12" alt="Bedrock Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-text-1">Bedrock.im</span>
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-text-1">{brandName}</span>
         </a>
 
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
