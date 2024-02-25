@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import { Editor, RawDraftContentState } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { useAlephAccount } from '../../context/useAlephAccount.tsx'
+import { AlephContext } from '../../context/AlephContext.tsx'
 import { useCreatePost } from '../../utils/query.ts'
 
 type SaveButtonProps = {
@@ -22,7 +22,7 @@ const EncryptToggleButton: React.FC<EncryptToggleButtonProps> = ({onEncryptToggl
 
 
 const NoteEditor: React.FC<Editor['props']> = (props) => {
-  const alephAccount = useAlephAccount()
+  const alephAccount = useContext(AlephContext)
   const savedNote = localStorage.getItem('note') ?? undefined
   const savedEncryptionToggled = localStorage.getItem('encrypt') === 'true'
   const parsedNote = savedNote ? JSON.parse(savedNote) as RawDraftContentState : EMPTY_EDITOR_STATE
@@ -35,19 +35,19 @@ const NoteEditor: React.FC<Editor['props']> = (props) => {
   const {mutateAsync: createNoteAsync} = useCreatePost()
 
   const submitNote = useCallback(async () => {
-    if (!alephAccount?.account) throw new Error('No Aleph account found')
+    if (!alephAccount) throw new Error('No Aleph account found')
     if (note.blocks.every(block => block.text === '')) throw new Error('Empty note')
     let bufferNote = Buffer.from(JSON.stringify(note), 'utf8')
     if (isEncryptionToggled)
-      bufferNote = Buffer.from(await alephAccount.account.encrypt(bufferNote))
+      bufferNote = Buffer.from(await alephAccount.encrypt(bufferNote))
     await createNoteAsync({
       content: {
         secret: savedEncryptionToggled,
         note: bufferNote.toString('base64'),
       },
-      account: alephAccount.account,
+      account: alephAccount,
     })
-  }, [alephAccount?.account, createNoteAsync, note, isEncryptionToggled])
+  }, [alephAccount, createNoteAsync, note, isEncryptionToggled])
 
   const handleSave = () => submitNote()
 

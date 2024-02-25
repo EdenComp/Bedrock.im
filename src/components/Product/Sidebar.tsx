@@ -1,9 +1,9 @@
 import type { ReactElement } from 'react';
 import NoteTree from "./Sidebar/NoteTree.tsx";
-import {NoteMockUp} from "../../types/NoteMockUp.ts";
+import {AggregateNote} from "src/utils/types.ts";
 
 interface SidebarProps {
-  notes: NoteMockUp[],
+  notes: AggregateNote[],
   selectedNote: number,
   setSelectedNote: (note: number) => void
 }

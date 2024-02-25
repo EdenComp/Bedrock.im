@@ -1,6 +1,6 @@
-import {ReactElement, useEffect, useState} from 'react'
-import Sidebar from './Sidebar.tsx';
-import Markdown from "react-markdown";
+import { ReactElement, useEffect, useState } from 'react'
+import Sidebar from './Sidebar.tsx'
+import Markdown from 'react-markdown'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import remarkGfm from 'remark-gfm'
@@ -8,20 +8,80 @@ import {NoteMockUpStatus as NoteStatus} from "../../../types/NoteMockUp.ts";
 import {NoteMockUp as Note} from "../../../types/NoteMockUp.ts";
 
 export default function Notes(): ReactElement {
-  const [actualNotes, setActualNotes] = useState("")
+  const [actualNotes, setActualNotes] = useState('')
   const [selectedNote, setSelectedNote] = useState(4)
 
   let notes: Note[] = [
-    { id: 0, title: 'Todolist Feb', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Todo List\n- [x] Write the code\n- [ ] Write the tests\n- [ ] Document the code\n" },
-    { id: 1, title: 'Shopping List', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Shopping List\n- [ ] Milk\n- [ ] Eggs\n- [ ] Bread\n" },
-    { id: 2, title: 'Daily Note 12/03', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Daily Note\n- Woke up at 7:00\n- Ate breakfast\n- Went to work\n- Came home\n- Went to bed\n" },
-    { id: 3, title: 'Meeting Notes', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Meeting Notes\n- Meeting started at 10:00\n- Meeting ended at 11:00\n- Decisions made:\n  - We will have another meeting\n  - We will have a meeting to discuss the next meeting\n" },
-    { id: 4, title: 'Films seen', status: NoteStatus.CHANGED, lastUpdated: new Date(), note: "## Film seen\n- [x] The Godfather\n- [ ] The Godfather Part II\n- [ ] The Godfather Part III\n- [ ] Apocalypse Now\n- [x] The Conversation\n- [x] The Outsiders\n- [ ] Rumble Fish\n- [ ] Peggy Sue Got Married\n- [ ] Gardens of Stone\n" },
-    { id: 5, title: 'Books to read', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Books to read\n- [ ] The Lord of the Rings\n- [ ] The Hobbit\n- [ ] The Silmarillion\n" },
-    { id: 6, title: 'Recipes', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Recipes\n- [ ] Spaghetti\n- [ ] Lasagna\n- [ ] Pizza\n" },
-    { id: 7, title: 'Wish list', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Wish list\n- [ ] New car\n- [ ] New house\n- [ ] New computer\n" },
-    { id: 8, title: 'Ideas', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Ideas\n- [ ] New app\n- [ ] New website\n- [ ] New business\n" },
-    { id: 9, title: 'Goals', status: NoteStatus.COMPLETE, lastUpdated: new Date(), note: "## Goals\n- [ ] Lose weight\n- [ ] Get fit\n- [ ] Get rich\n"}
+    {
+      id: 0,
+      title: 'Todolist Feb',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Todo List\n- [x] Write the code\n- [ ] Write the tests\n- [ ] Document the code\n',
+    },
+    {
+      id: 1,
+      title: 'Shopping List',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Shopping List\n- [ ] Milk\n- [ ] Eggs\n- [ ] Bread\n',
+    },
+    {
+      id: 2,
+      title: 'Daily Note 12/03',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Daily Note\n- Woke up at 7:00\n- Ate breakfast\n- Went to work\n- Came home\n- Went to bed\n',
+    },
+    {
+      id: 3,
+      title: 'Meeting Notes',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Meeting Notes\n- Meeting started at 10:00\n- Meeting ended at 11:00\n- Decisions made:\n  - We will have another meeting\n  - We will have a meeting to discuss the next meeting\n',
+    },
+    {
+      id: 4,
+      title: 'Films seen',
+      status: NoteStatus.CHANGED,
+      lastUpdated: new Date(),
+      note: '## Film seen\n- [x] The Godfather\n- [ ] The Godfather Part II\n- [ ] The Godfather Part III\n- [ ] Apocalypse Now\n- [x] The Conversation\n- [x] The Outsiders\n- [ ] Rumble Fish\n- [ ] Peggy Sue Got Married\n- [ ] Gardens of Stone\n',
+    },
+    {
+      id: 5,
+      title: 'Books to read',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Books to read\n- [ ] The Lord of the Rings\n- [ ] The Hobbit\n- [ ] The Silmarillion\n',
+    },
+    {
+      id: 6,
+      title: 'Recipes',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Recipes\n- [ ] Spaghetti\n- [ ] Lasagna\n- [ ] Pizza\n',
+    },
+    {
+      id: 7,
+      title: 'Wish list',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Wish list\n- [ ] New car\n- [ ] New house\n- [ ] New computer\n',
+    },
+    {
+      id: 8,
+      title: 'Ideas',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Ideas\n- [ ] New app\n- [ ] New website\n- [ ] New business\n',
+    },
+    {
+      id: 9,
+      title: 'Goals',
+      status: NoteStatus.COMPLETE,
+      lastUpdated: new Date(),
+      note: '## Goals\n- [ ] Lose weight\n- [ ] Get fit\n- [ ] Get rich\n',
+    },
   ]
 
   useEffect(() => {
