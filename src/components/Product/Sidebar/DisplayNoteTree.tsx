@@ -1,4 +1,4 @@
-import {AggregateNote} from "src/utils/types.ts";
+import {AggregateNote} from "../../../utils/types.ts";
 import Text from "../../Basic/Text.tsx";
 
 interface DisplayNoteTreeProps {

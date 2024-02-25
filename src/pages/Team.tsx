@@ -47,11 +47,11 @@ export default function Team(): ReactElement {
       <div className="container px-4">
         <div className="mt-12 text-center">
           <h2 className="text-text-1 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Meet Our Team</h2>
-          <p className="mt-3 text-text-2">We're a passionate team dedicated to building amazing products.</p>
+          <p className="mt-3 text-text-2">We&apos;re a passionate team dedicated to building amazing products.</p>
         </div>
         <div className="grid gap-32 mt-12 md:grid-cols-2 lg:grid-cols-3">
           {profiles.map((profile, index) => (
-            <TeamCard profile={profile} index={index}/>
+            <TeamCard key={index} profile={profile} index={index}/>
           ))}
         </div>
       </div>

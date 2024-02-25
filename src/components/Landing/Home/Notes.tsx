@@ -4,18 +4,17 @@ import Markdown from 'react-markdown'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import remarkGfm from 'remark-gfm'
-import {NoteMockUpStatus as NoteStatus} from "../../../types/NoteMockUp.ts";
-import {NoteMockUp as Note} from "../../../types/NoteMockUp.ts";
+import {NoteMockUpStatus as NoteStatus,NoteMockUp as Note} from "../../../utils/NoteMockUp.ts";
 
 export default function Notes(): ReactElement {
   const [actualNotes, setActualNotes] = useState('')
   const [selectedNote, setSelectedNote] = useState(4)
 
-  let notes: Note[] = [
+  const notes: Note[] = [
     {
       id: 0,
       title: 'Todolist Feb',
-      status: NoteStatus.COMPLETE,
+      status: NoteStatus.NEW,
       lastUpdated: new Date(),
       note: '## Todo List\n- [x] Write the code\n- [ ] Write the tests\n- [ ] Document the code\n',
     },

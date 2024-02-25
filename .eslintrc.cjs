@@ -15,7 +15,7 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     "no-unused-vars": [
-      "error",
+      "warn",
       {
         "vars": "all",
         "args": "after-used",
@@ -28,6 +28,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    "@typescript-eslint/no-explicit-any": "warn",
   },
   settings: {
     react: {

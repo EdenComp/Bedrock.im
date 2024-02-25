@@ -54,8 +54,8 @@ const NoteEditor: React.FC<Editor['props']> = (props) => {
   return (
     <Editor
       toolbarCustomButtons={[
-        <SaveButton onSave={handleSave} />,
-        <EncryptToggleButton checked={isEncryptionToggled} onEncryptToggle={setEncryptionToggled} />,
+        <SaveButton key={1} onSave={handleSave} />,
+        <EncryptToggleButton key={2} checked={isEncryptionToggled} onEncryptToggle={setEncryptionToggled} />,
       ]}
       editorStyle={{width: '70vw'}}
       onChange={setNote}

@@ -1,6 +1,6 @@
 import DisplayNoteTree
   from "./DisplayNoteTree.tsx";
-import {AggregateNote} from "src/utils/types.ts";
+import {AggregateNote} from "../../../utils/types.ts";
 
 interface NoteTreeProps {
   notes: AggregateNote[],

@@ -5,7 +5,7 @@ import rehypeKatex from "rehype-katex";
 import rehypeRaw from 'rehype-raw'
 import remarkRehype from "remark-rehype";
 import type { ReactElement } from "react";
-import {AggregateNote, NoteInput} from "src/utils/types.ts";
+import {AggregateNote, NoteInput} from "../../utils/types.ts";
 
 interface BodyProps {
   notes: AggregateNote[],
