@@ -1,27 +1,29 @@
 import type { ReactElement } from "react";
 import MarkdownVisualiser from "./MardownVisualiser.tsx";
-import { LocalNote, NoteInput } from "../../utils/types.ts";
+import { LocalNote } from "../../utils/types.ts";
 
 interface BodyProps {
-  notes: LocalNote[];
   selectedNote: number;
-  input: NoteInput;
-  setInput: (input: NoteInput) => void;
+  currentNote: LocalNote;
+  setCurrentNote: (note: LocalNote) => void;
 }
 
-export default function Body({ notes, selectedNote, input, setInput }: BodyProps): ReactElement {
+export default function Body({ selectedNote, currentNote, setCurrentNote }: BodyProps): ReactElement {
   return (
     <div className="flex flex-col w-full h-full">
       <div className="text-text-1 text-4xl font-semibold w-full text-center border-b border-border-1 p-4">
         <input
           type="text"
           className="w-full text-center p-2 bg-interactive-1 text-text-2 outline-0 border-0 rounded-lg hover:bg-interactive-2 focus:bg-interactive-3 transition-colors duration-300"
-          value={notes[selectedNote]?.data.title ?? "Select a note"}
+          value={currentNote.data.title ?? "Select a note"}
           disabled={selectedNote === -1}
-          onChange={() =>
-            setInput({
-              ...input,
-              title: notes[selectedNote]?.data.title ?? "",
+          onChange={({ target: { value } }) =>
+            setCurrentNote({
+              ...currentNote,
+              data: {
+                ...currentNote.data,
+                title: value,
+              },
             })
           }
         />
@@ -32,11 +34,14 @@ export default function Body({ notes, selectedNote, input, setInput }: BodyProps
           <textarea
             disabled={selectedNote === -1}
             className="w-full h-full bg-background-2 hover:bg-interactive-1 text-text-2 p-4 outline-0 border-0 rounded-lg resize-none transition-colors duration-300 focus:bg-background-2"
-            value={input.body}
-            onChange={(e) =>
-              setInput({
-                ...input,
-                title: e.target.value,
+            value={currentNote.data.body ?? "Start typing to see the reflected changes"}
+            onChange={({ target: { value } }) =>
+              setCurrentNote({
+                ...currentNote,
+                data: {
+                  ...currentNote.data,
+                  body: value,
+                },
               })
             }
           />
@@ -56,7 +61,7 @@ export default function Body({ notes, selectedNote, input, setInput }: BodyProps
           </svg>
         </div>
         <div className="relative w-full h-full p-4 border-l border-b border-border-1 mx-auto max-w-1/3 overflow-y-auto transition-colors duration-300">
-          <MarkdownVisualiser rawMarkdown={input.body} />
+          <MarkdownVisualiser rawMarkdown={currentNote.data.body} />
         </div>
       </div>
     </div>

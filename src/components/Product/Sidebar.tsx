@@ -6,12 +6,15 @@ import { AlephContext } from "../../context/AlephContext.tsx";
 interface SidebarProps {
   notes: LocalNote[];
   selectedNote: number;
-  setSelectedNote: (note: number) => void;
+  setNotes: (value: ((prevState: LocalNote[]) => LocalNote[]) | LocalNote[]) => void;
+  setSelectedNote: (value: ((prevState: number) => number) | number) => void;
 }
 
-export default function Sidebar({ notes, selectedNote, setSelectedNote }: SidebarProps): ReactElement {
+export default function Sidebar({ notes, selectedNote, setNotes, setSelectedNote }: SidebarProps): ReactElement {
   const alephAccount = useContext(AlephContext);
+
   if (!alephAccount) return <></>;
+
   return (
     <div className="w-1/5 relative">
       <div className="flex flex-col items-center w-1/6 bg-card bg-background-2 h-screen fixed top-0 left-0 border-r border-border-1 hover:border-border-2">
@@ -26,19 +29,22 @@ export default function Sidebar({ notes, selectedNote, setSelectedNote }: Sideba
       </div>
       <div>
         <button
-          onClick={() => {
-            notes.push({
-              data: {
-                title: "New Note",
-                updatedAt: new Date(),
-                body: "",
+          onClick={() =>
+            setNotes((prevState) => [
+              ...prevState,
+              {
+                data: {
+                  title: "New Note",
+                  updatedAt: new Date(),
+                  body: "",
+                },
+                status: "draft",
+                secret: false,
+                hash: undefined,
+                owner: alephAccount.address,
               },
-              status: "draft",
-              secret: false,
-              hash: undefined,
-              owner: alephAccount.address,
-            });
-          }}
+            ])
+          }
           className="bg-card text-text-1 p-4 rounded-lg mb-20 w-1/4 mx-auto transition-colors duration-300 hover:shadow-lg bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3 absolute -bottom-12 left-12"
         >
           New
