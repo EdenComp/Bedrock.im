@@ -19,7 +19,6 @@ export default function Providers({ children }: PropsWithChildren) {
     try {
       setIsFetching(true)
       const alephAccount = await GetAccountFromProvider(window.ethereum)
-      await alephAccount.askPubKey()
       setAlephAccount(alephAccount)
     } catch (e) {
       disconnect()

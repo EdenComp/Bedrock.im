@@ -17,6 +17,7 @@ export default function useNotes(): Notes | null {
   const getNotes = useCallback(async () => {
     if (!alephAccount)
       return null
+    await alephAccount.askPubKey()
     const rawAggregateNotesData = await loadAggregate(alephAccount, await objectToEncryptedBase64(alephAccount, []))
     if (rawAggregateNotesData === undefined)
       throw new Error('Failed to load aggregate notes')
