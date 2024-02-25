@@ -28,6 +28,7 @@ export const getNote = async (
     content: { secret, hash, data, owner },
   } = note;
 
+  // @ts-expect-error Typescript is too dumb to under that the data field is either a string or an object in either case
   return {
     secret,
     hash,
