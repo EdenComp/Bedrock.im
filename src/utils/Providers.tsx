@@ -30,7 +30,7 @@ export default function Providers({ children }: PropsWithChildren) {
     if (window.ethereum && (!account.isConnected || !alephAccount) && !isFetching) {
       connectAleph();
     }
-  }, [account]);
+  }, [account, alephAccount, connectAleph, isFetching]);
 
   return <AlephContext.Provider value={alephAccount}>{children}</AlephContext.Provider>;
 }

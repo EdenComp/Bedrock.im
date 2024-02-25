@@ -49,7 +49,7 @@ const NoteEditor: React.FC<Editor["props"]> = (props) => {
       },
       account: alephAccount,
     });
-  }, [alephAccount, createNoteAsync, note, isEncryptionToggled]);
+  }, [alephAccount, createNoteAsync, note, isEncryptionToggled, savedEncryptionToggled]);
 
   const handleSave = () => submitNote();
 
