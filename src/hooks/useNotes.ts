@@ -25,14 +25,15 @@ export default function useNotes(): Notes | null {
     );
 
     setResult({
-      notes: aggregateNotes.map((note) => ({
+      notes: aggregateNotes.map(({ data, secret, hash, owner }) => ({
         data: {
-          ...note.data,
+          ...data,
           body: "",
         },
-        secret: note.secret,
+        secret,
         status: "saved",
-        hash: note.hash,
+        hash,
+        owner,
       })),
     });
   }, [alephAccount]);
