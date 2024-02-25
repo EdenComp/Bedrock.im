@@ -56,7 +56,7 @@ export default function Body({ notes, selectedNote, input, setInput }: BodyProps
           </svg>
         </div>
         <div className="relative w-full h-full p-4 border-l border-b border-border-1 mx-auto max-w-1/3 overflow-y-auto transition-colors duration-300">
-          <MarkdownVisualiser rawMarkdown={"# Hello World!"} />
+          <MarkdownVisualiser rawMarkdown={input.body} />
         </div>
       </div>
     </div>
