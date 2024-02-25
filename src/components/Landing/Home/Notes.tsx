@@ -4,8 +4,8 @@ import Markdown from 'react-markdown'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import remarkGfm from 'remark-gfm'
-import { NoteStatus } from '../../../types/NoteStatus.ts'
-import { Note } from '../../../types/Note.ts'
+import {NoteMockUpStatus as NoteStatus} from "../../../types/NoteMockUp.ts";
+import {NoteMockUp as Note} from "../../../types/NoteMockUp.ts";
 
 export default function Notes(): ReactElement {
   const [actualNotes, setActualNotes] = useState('')
@@ -92,7 +92,7 @@ export default function Notes(): ReactElement {
 
   return (
     <div className="min-w-screen h-screen bg-background-1 flex flex-row">
-      <div className={'w-1/5'}>
+      <div className={"w-1/5"}>
         <Sidebar notes={notes} selectedNote={selectedNote} setSelectedNote={setSelectedNote} />
       </div>
       <div className="flex flex-col w-full h-full">
@@ -108,15 +108,11 @@ export default function Notes(): ReactElement {
           </div>
         </div>
         <div className="flex flex-row w-full h-full">
-          <div
-            className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-r border-b border-border-1 hover:bg-background-2">
-            <textarea className="w-full h-full bg-background-1 text-text-2 p-4 border-0 outline-0" value={actualNotes}
-                      onChange={(e) => setActualNotes(e.target.value)} />
+          <div className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-r border-b border-border-1 hover:bg-background-2">
+            <textarea className="w-full h-full bg-background-1 text-text-2 p-4 border-0 outline-0" value={actualNotes} onChange={(e) => setActualNotes(e.target.value)} />
           </div>
-          <div
-            className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-l border-b border-border-1 hover:bg-background-2 mx-auto max-w-1/3 overflow-y-auto">
-            <Markdown className="text-left break-all px-4 py-3" remarkPlugins={[remarkGfm, remarkMath]}
-                      rehypePlugins={[rehypeKatex]}>{actualNotes}</Markdown>
+          <div className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-l border-b border-border-1 hover:bg-background-2 mx-auto max-w-1/3 overflow-y-auto">
+            <Markdown className="text-left break-all px-4 py-3" remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>{actualNotes}</Markdown>
           </div>
         </div>
       </div>

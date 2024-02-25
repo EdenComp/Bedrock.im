@@ -1,6 +1,6 @@
-import Text from '../../../Basic/Text.tsx'
-import { NoteStatus } from '../../../../types/NoteStatus.ts'
-import { Note } from '../../../../types/Note.ts'
+import Text from "../../../Basic/Text.tsx";
+import {NoteMockUp as Note} from "../../../../types/NoteMockUp.ts";
+import {NoteMockUpStatus as NoteStatus} from "../../../../types/NoteMockUp.ts";
 
 interface DisplayNoteTreeProps {
   note: Note,
@@ -36,8 +36,7 @@ interface NoteTreeProps {
 export default function NoteTree({notes, selectedNote, setSelectedNote}: NoteTreeProps) {
   return (
     <div className="p-4 text-text-2 w-full flex flex-col">
-      {notes.map((note) => <DisplayNoteTree key={note.id} note={note} selectedNote={selectedNote}
-                                            setSelectedNote={setSelectedNote} />)}
+      {notes.map((note) => <DisplayNoteTree key={note.id} note={note} selectedNote={selectedNote} setSelectedNote={setSelectedNote} />)}
     </div>
   )
 }
