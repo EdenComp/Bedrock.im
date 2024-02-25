@@ -1,5 +1,5 @@
-import Text from '../../../Basic/Text.tsx';
-import { NoteMockUp as Note, NoteMockUpStatus as NoteStatus } from '../../../../utils/NoteMockUp.ts';
+import Text from "../../../Basic/Text.tsx";
+import { NoteMockUp as Note, NoteMockUpStatus as NoteStatus } from "../../../../utils/NoteMockUp.ts";
 
 interface DisplayNoteTreeProps {
   note: Note;
@@ -26,7 +26,7 @@ const DisplayNoteTree = ({ note, selectedNote, setSelectedNote }: DisplayNoteTre
         </svg>
       )}
       <Text
-        className={`text-xs ${note.status === NoteStatus.NEW ? ' text-new ' : note.status === NoteStatus.CHANGED ? ' text-changed ' : 'text-text-2'}`}
+        className={`text-xs ${note.status === NoteStatus.NEW ? " text-new " : note.status === NoteStatus.CHANGED ? " text-changed " : "text-text-2"}`}
       >
         {note.title}
       </Text>

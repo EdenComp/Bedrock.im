@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-export const NoteLocalStatusSchema = z.enum(['draft', 'modified', 'saved']);
+export const NoteLocalStatusSchema = z.enum(["draft", "modified", "saved"]);
 
 export const NoteMetadataSchema = z.object({
   secret: z.boolean(),

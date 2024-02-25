@@ -1,11 +1,11 @@
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import rehypeRaw from 'rehype-raw';
-import remarkRehype from 'remark-rehype';
-import type { ReactElement } from 'react';
-import { AggregateNote, NoteInput } from '../../utils/types.ts';
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import rehypeRaw from "rehype-raw";
+import remarkRehype from "remark-rehype";
+import type { ReactElement } from "react";
+import { AggregateNote, NoteInput } from "../../utils/types.ts";
 
 interface BodyProps {
   notes: AggregateNote[];
@@ -21,12 +21,12 @@ export default function Body({ notes, selectedNote, input, setInput }: BodyProps
         <input
           type="text"
           className="w-full text-center p-2 bg-interactive-1 text-text-2 outline-0 border-0 rounded-lg hover:bg-interactive-2 focus:bg-interactive-3 transition-colors duration-300"
-          value={notes[selectedNote]?.data.title ?? 'Select a note'}
+          value={notes[selectedNote]?.data.title ?? "Select a note"}
           disabled={selectedNote === -1}
           onChange={() =>
             setInput({
               ...input,
-              title: notes[selectedNote]?.data.title ?? '',
+              title: notes[selectedNote]?.data.title ?? "",
             })
           }
         />

@@ -1,13 +1,13 @@
-import { ReactElement, useEffect, useState } from 'react';
-import Sidebar from '../components/Product/Sidebar.tsx';
-import Body from '../components/Product/Body.tsx';
-import useNotes from '../hooks/useNotes.ts';
-import { NoteInput } from '../utils/types.ts';
+import { ReactElement, useEffect, useState } from "react";
+import Sidebar from "../components/Product/Sidebar.tsx";
+import Body from "../components/Product/Body.tsx";
+import useNotes from "../hooks/useNotes.ts";
+import { NoteInput } from "../utils/types.ts";
 
 export default function Notes(): ReactElement {
   const [input, setInput] = useState<NoteInput>({
-    title: '',
-    body: '',
+    title: "",
+    body: "",
   });
   const [selectedNote, setSelectedNote] = useState(-1);
   const notes = useNotes();
@@ -21,8 +21,8 @@ export default function Notes(): ReactElement {
   useEffect(() => {
     if (selectedNote != -1) {
       setInput({
-        title: notes?.aggregateNotes[selectedNote].data.title ?? '',
-        body: '',
+        title: notes?.aggregateNotes[selectedNote].data.title ?? "",
+        body: "",
         // TODO: body: notes?.aggregateNotes[selectedNote].body ?? "",
       });
     }

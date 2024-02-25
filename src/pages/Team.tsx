@@ -1,9 +1,9 @@
-import Layout from '../components/Landing/Layout.tsx';
-import type { ReactElement } from 'react';
+import Layout from "../components/Landing/Layout.tsx";
+import type { ReactElement } from "react";
 
 const TeamCard = ({ profile, index }: { profile: any; index: number }): ReactElement => {
   return (
-    <button onClick={() => window.open(profile.link, '_blank')} className="focus:outline-none" key={index}>
+    <button onClick={() => window.open(profile.link, "_blank")} className="focus:outline-none" key={index}>
       <div
         key={index}
         className="border rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2 hover:scale-105 border-border-1 hover:border-border-2 active:border-border-3 bg-background-2 shadow-interactive-1 hover:shadow-interactive-2 active:shadow-interactive-3"
@@ -26,25 +26,25 @@ const TeamCard = ({ profile, index }: { profile: any; index: number }): ReactEle
 export default function Team(): ReactElement {
   const profiles = [
     {
-      photo: 'https://avatars.githubusercontent.com/u/33784129?v=4',
-      name: 'Florian Lauch',
-      role: 'Fullstack Engineer',
-      description: 'Visionary leader with a passion for innovation.',
-      link: 'https://github.com/EdenComp',
+      photo: "https://avatars.githubusercontent.com/u/33784129?v=4",
+      name: "Florian Lauch",
+      role: "Fullstack Engineer",
+      description: "Visionary leader with a passion for innovation.",
+      link: "https://github.com/EdenComp",
     },
     {
-      photo: 'https://avatars.githubusercontent.com/u/54242096?v=4',
-      name: 'Dorian Moy',
-      role: 'Fullstack Engineer',
-      description: 'Technology enthusiast and problem solver.',
-      link: 'https://github.com/Croos3r',
+      photo: "https://avatars.githubusercontent.com/u/54242096?v=4",
+      name: "Dorian Moy",
+      role: "Fullstack Engineer",
+      description: "Technology enthusiast and problem solver.",
+      link: "https://github.com/Croos3r",
     },
     {
-      photo: 'https://avatars.githubusercontent.com/u/91875715?v=4',
-      name: 'Tom Bariteau-Peter',
-      role: 'Fullstack Engineer',
-      description: 'Creative mind with an eye for beautiful design.',
-      link: 'https://github.com/Tomi-Tom',
+      photo: "https://avatars.githubusercontent.com/u/91875715?v=4",
+      name: "Tom Bariteau-Peter",
+      role: "Fullstack Engineer",
+      description: "Creative mind with an eye for beautiful design.",
+      link: "https://github.com/Tomi-Tom",
     },
   ];
 

@@ -1,7 +1,7 @@
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
-import { AlephContext } from '../context/AlephContext';
-import { useAccount, useDisconnect } from 'wagmi';
-import { ETHAccount, GetAccountFromProvider } from 'aleph-sdk-ts/dist/accounts/ethereum';
+import { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { AlephContext } from "../context/AlephContext";
+import { useAccount, useDisconnect } from "wagmi";
+import { ETHAccount, GetAccountFromProvider } from "aleph-sdk-ts/dist/accounts/ethereum";
 
 export default function Providers({ children }: PropsWithChildren) {
   const account = useAccount();

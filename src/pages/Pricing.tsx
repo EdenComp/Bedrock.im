@@ -1,6 +1,6 @@
-import Layout from '../components/Landing/Layout.tsx';
-import type { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import Layout from "../components/Landing/Layout.tsx";
+import type { ReactElement } from "react";
+import { Link } from "react-router-dom";
 
 const PricingCard = ({ pricing, key }: { pricing: any; key: number }): ReactElement => {
   return (
@@ -37,7 +37,7 @@ const PricingCard = ({ pricing, key }: { pricing: any; key: number }): ReactElem
       <div className="p-4 bg-background-2 border border-border-1 rounded-b-lg">
         <Link
           className="w-full inline-flex items-center justify-center rounded-md h-10 text-sm font-medium shadow-sm bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 text-text-1 hover:text-text-2 transition-colors"
-          to={pricing.link === 'Sign up' ? '/signup' : '/contact'}
+          to={pricing.link === "Sign up" ? "/signup" : "/contact"}
         >
           {pricing.link}
         </Link>
@@ -49,32 +49,32 @@ const PricingCard = ({ pricing, key }: { pricing: any; key: number }): ReactElem
 export default function Pricing(): ReactElement {
   const pricings = [
     {
-      title: 'Starter',
-      price: '$9',
-      description: 'Perfect for small teams just getting started.',
-      features: ['Up to 5 projects', 'Basic analytics', 'Email support'],
-      link: 'Sign up',
+      title: "Starter",
+      price: "$9",
+      description: "Perfect for small teams just getting started.",
+      features: ["Up to 5 projects", "Basic analytics", "Email support"],
+      link: "Sign up",
     },
     {
-      title: 'Pro',
-      price: '$29',
-      description: 'Robust features for growing teams.',
-      features: ['Unlimited projects', 'Advanced analytics', 'Priority email support'],
-      link: 'Sign up',
+      title: "Pro",
+      price: "$29",
+      description: "Robust features for growing teams.",
+      features: ["Unlimited projects", "Advanced analytics", "Priority email support"],
+      link: "Sign up",
     },
     {
-      title: 'Business',
-      price: '$99',
-      description: 'All you need to maximize productivity.',
-      features: ['Unlimited projects', 'Advanced analytics', '24/7 phone support'],
-      link: 'Contact Sales',
+      title: "Business",
+      price: "$99",
+      description: "All you need to maximize productivity.",
+      features: ["Unlimited projects", "Advanced analytics", "24/7 phone support"],
+      link: "Contact Sales",
     },
     {
-      title: 'Enterprise',
-      price: 'Custom',
-      description: 'Scalable, secure, and customizable for large teams.',
-      features: ['Unlimited projects', 'Advanced analytics', '24/7 phone support'],
-      link: 'Contact Sales',
+      title: "Enterprise",
+      price: "Custom",
+      description: "Scalable, secure, and customizable for large teams.",
+      features: ["Unlimited projects", "Advanced analytics", "24/7 phone support"],
+      link: "Contact Sales",
     },
   ];
 

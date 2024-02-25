@@ -1,8 +1,8 @@
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 
-import { mainnet } from 'viem/chains';
-import { wagmiConfig } from '../../../../utils/config';
-import { useState } from 'react';
+import { mainnet } from "viem/chains";
+import { wagmiConfig } from "../../../../utils/config";
+import { useState } from "react";
 
 export default function MetamaskButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,10 +14,10 @@ export default function MetamaskButton() {
   const { disconnect } = useDisconnect();
 
   return (
-    <div className={'relative h-full'}>
+    <div className={"relative h-full"}>
       <button
         type="button"
-        className={`text-text-1 h-full font-medium rounded-lg text-sm px-4 py-2 text-center disabled:text-opacity-20 disabled:cursor-not-allowed bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3 ${account?.isConnected && isOpen ? 'rounded-r-none' : ''}`}
+        className={`text-text-1 h-full font-medium rounded-lg text-sm px-4 py-2 text-center disabled:text-opacity-20 disabled:cursor-not-allowed bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3 ${account?.isConnected && isOpen ? "rounded-r-none" : ""}`}
         disabled={account.isConnecting}
         onClick={() => {
           if (!account.isConnected) {
@@ -32,11 +32,11 @@ export default function MetamaskButton() {
         title={account?.address}
       >
         <img
-          src={'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg'}
-          alt={'Metamask'}
-          className={'h-5 w-5 inline-block mr-2'}
+          src={"https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"}
+          alt={"Metamask"}
+          className={"h-5 w-5 inline-block mr-2"}
         />
-        {account.isConnected ? account.address?.slice(0, 6) + '...' + account.address?.slice(-4) : 'Connect'}
+        {account.isConnected ? account.address?.slice(0, 6) + "..." + account.address?.slice(-4) : "Connect"}
       </button>
       {account?.isConnected && isOpen && (
         <button

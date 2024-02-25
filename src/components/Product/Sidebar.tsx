@@ -1,6 +1,6 @@
-import type { ReactElement } from 'react';
-import NoteTree from './Sidebar/NoteTree.tsx';
-import { AggregateNote } from '../../utils/types.ts';
+import type { ReactElement } from "react";
+import NoteTree from "./Sidebar/NoteTree.tsx";
+import { AggregateNote } from "../../utils/types.ts";
 
 interface SidebarProps {
   notes: AggregateNote[];
@@ -10,7 +10,7 @@ interface SidebarProps {
 
 export default function Sidebar({ notes, selectedNote, setSelectedNote }: SidebarProps): ReactElement {
   return (
-    <div className={'w-1/5'}>
+    <div className={"w-1/5"}>
       <div className="flex flex-col items-center w-1/6 bg-card bg-background-2 h-screen fixed top-0 left-0 border-r border-border-1 hover:border-border-2">
         <a
           href="/"

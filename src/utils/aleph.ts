@@ -1,7 +1,7 @@
-import { aggregate, post } from 'aleph-sdk-ts/dist/messages';
-import { alephAggregateKey, alephChannel, alephPostType } from './config.ts';
-import { ETHAccount } from 'aleph-sdk-ts/dist/accounts/ethereum';
-import { base64ToObject, encryptedBase64ToObject, objectToBase64, objectToEncryptedBase64 } from './crypto.ts';
+import { aggregate, post } from "aleph-sdk-ts/dist/messages";
+import { alephAggregateKey, alephChannel, alephPostType } from "./config.ts";
+import { ETHAccount } from "aleph-sdk-ts/dist/accounts/ethereum";
+import { base64ToObject, encryptedBase64ToObject, objectToBase64, objectToEncryptedBase64 } from "./crypto.ts";
 import {
   AggregateNote,
   AuthenticatedNote,
@@ -9,9 +9,9 @@ import {
   LocalNoteSchema,
   NoteAuthenticatedDataSchema,
   UnauthenticatedNote,
-} from './types.ts';
-import { z } from 'zod';
-import { isAxiosError } from 'axios';
+} from "./types.ts";
+import { z } from "zod";
+import { isAxiosError } from "axios";
 
 export const getNote = async (account: ETHAccount, noteHash: string): Promise<AuthenticatedNote> => {
   const {
@@ -66,7 +66,7 @@ export const updateNote = async (account: ETHAccount, { hash, ...note }: LocalNo
   await post.Publish({
     account,
     channel: alephChannel,
-    postType: 'amend',
+    postType: "amend",
     ref: hash,
     content: note,
   });
@@ -77,13 +77,13 @@ export const deleteNote = async (account: ETHAccount, hash: string) => {
     account,
     content: {},
     channel: alephChannel,
-    postType: 'delete',
+    postType: "delete",
     ref: hash,
   });
 };
 
 export const updateAggregate = async <T>(account: ETHAccount, content: T) => {
-  console.warn('Updating aggregate', content);
+  console.warn("Updating aggregate", content);
   await aggregate.Publish<{ data: T }>({
     account,
     content: {
@@ -103,7 +103,7 @@ export const loadAggregate = async <T>(account: ETHAccount, defaultValue: T): Pr
     return result[alephAggregateKey].data;
   } catch (e: unknown) {
     if (isAxiosError(e) && e.response?.status === 404) {
-      console.warn('Aggregate not found', e);
+      console.warn("Aggregate not found", e);
       await updateAggregate<T>(account, defaultValue);
       return defaultValue;
     }

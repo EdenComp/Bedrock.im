@@ -1,6 +1,6 @@
-import { ReactElement, useContext } from 'react';
-import MetamaskButton from './Navbar/MetamaskButton.tsx';
-import { AlephContext } from '../../../context/AlephContext.tsx';
+import { ReactElement, useContext } from "react";
+import MetamaskButton from "./Navbar/MetamaskButton.tsx";
+import { AlephContext } from "../../../context/AlephContext.tsx";
 
 const NavBarTab = ({ page }: any): ReactElement => {
   return (
@@ -18,13 +18,13 @@ const NavBarTab = ({ page }: any): ReactElement => {
 
 export default function NavBar(): ReactElement {
   const pages = [
-    { name: 'Home', href: '/', current: true },
-    { name: 'Pricing', href: '/pricing', current: false },
-    { name: 'Team', href: '/team', current: false },
+    { name: "Home", href: "/", current: true },
+    { name: "Pricing", href: "/pricing", current: false },
+    { name: "Team", href: "/team", current: false },
   ];
 
   const alephAccount = useContext(AlephContext);
-  if (alephAccount) pages.push({ name: 'Notes', href: '/notes', current: false });
+  if (alephAccount) pages.push({ name: "Notes", href: "/notes", current: false });
 
   return (
     <nav className="bg-background-2 fixed w-full z-20 top-0 start-0 border-b border-border-1">

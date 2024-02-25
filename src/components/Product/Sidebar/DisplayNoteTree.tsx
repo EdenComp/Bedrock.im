@@ -1,5 +1,5 @@
-import { AggregateNote } from '../../../utils/types.ts';
-import Text from '../../Basic/Text.tsx';
+import { AggregateNote } from "../../../utils/types.ts";
+import Text from "../../Basic/Text.tsx";
 
 interface DisplayNoteTreeProps {
   note: AggregateNote;
@@ -38,7 +38,7 @@ const DisplayNoteTree = ({ note, index, selectedNote, setSelectedNote }: Display
       /*className={DisplayColor[note.status]}> TODO */
       >
         {note.data.title.length > (selectedNote === index ? 20 : 22)
-          ? note.data.title.substring(0, selectedNote === index ? 20 : 22) + '...'
+          ? note.data.title.substring(0, selectedNote === index ? 20 : 22) + "..."
           : note.data.title}
       </Text>
       {selectedNote === index && (
