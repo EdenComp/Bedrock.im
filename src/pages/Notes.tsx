@@ -38,10 +38,10 @@ export default function Notes(): ReactElement {
     },
     {
       id: 4,
-      title: 'Film seen',
+      title: 'Films seen',
       status: NoteMockUpStatus.CHANGED,
       lastUpdated: new Date(),
-      note: "## Film seen\n- [x] The Godfather\n- [ ] The Godfather Part II\n- [ ] The Godfather Part III\n- [ ] Apocalypse Now\n- [x] The Conversation\n- [x] The Outsiders\n- [ ] Rumble Fish\n- [ ] Peggy Sue Got Married\n- [ ] Gardens of Stone\n"
+      note: "## Films seen\n- [x] The Godfather\n- [ ] The Godfather Part II\n- [ ] The Godfather Part III\n- [ ] Apocalypse Now\n- [x] The Conversation\n- [x] The Outsiders\n- [ ] Rumble Fish\n- [ ] Peggy Sue Got Married\n- [ ] Gardens of Stone\n"
     },
     {
       id: 5,
