@@ -35,19 +35,19 @@ const NoteEditor: React.FC<Editor['props']> = (props) => {
   const {mutateAsync: createNoteAsync} = useCreatePost()
 
   const submitNote = useCallback(async () => {
-    if (!alephAccount?.account) throw new Error('No Aleph account found')
+    if (!alephAccount) throw new Error('No Aleph account found')
     if (note.blocks.every(block => block.text === '')) throw new Error('Empty note')
     let bufferNote = Buffer.from(JSON.stringify(note), 'utf8')
     if (isEncryptionToggled)
-      bufferNote = Buffer.from(await alephAccount.account.encrypt(bufferNote))
+      bufferNote = Buffer.from(await alephAccount.encrypt(bufferNote))
     await createNoteAsync({
       content: {
         secret: savedEncryptionToggled,
         note: bufferNote.toString('base64'),
       },
-      account: alephAccount.account,
+      account: alephAccount,
     })
-  }, [alephAccount?.account, createNoteAsync, note, isEncryptionToggled])
+  }, [alephAccount, createNoteAsync, note, isEncryptionToggled])
 
   const handleSave = () => submitNote()
 

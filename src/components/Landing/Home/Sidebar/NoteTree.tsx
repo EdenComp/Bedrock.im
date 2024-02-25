@@ -1,6 +1,6 @@
-import Text from "../../../Basic/Text.tsx";
-import {NoteStatus} from "src/types/NoteStatus.ts";
-import {Note} from "src/types/Note.ts";
+import Text from '../../../Basic/Text.tsx'
+import { NoteStatus } from '../../../../types/NoteStatus.ts'
+import { Note } from '../../../../types/Note.ts'
 
 interface DisplayNoteTreeProps {
   note: Note,
@@ -8,13 +8,14 @@ interface DisplayNoteTreeProps {
   setSelectedNote: (note: number) => void
 }
 
-const DisplayNoteTree = ({ note, selectedNote, setSelectedNote }: DisplayNoteTreeProps) => {
+const DisplayNoteTree = ({note, selectedNote, setSelectedNote}: DisplayNoteTreeProps) => {
   return (
-    <button onClick={(): void => setSelectedNote(note.id)} className="flex flex-row items-center w-full hover:bg-interactive-1 active:bg-interactive-2 p-1 text-text-2 hover:text-text-1">
+    <button onClick={(): void => setSelectedNote(note.id)}
+            className="flex flex-row items-center w-full hover:bg-interactive-1 active:bg-interactive-2 p-1 text-text-2 hover:text-text-1">
       {selectedNote === note.id &&
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                stroke="currentColor" className="w-3 h-3">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
           </svg>
       }
       <Text
@@ -22,7 +23,8 @@ const DisplayNoteTree = ({ note, selectedNote, setSelectedNote }: DisplayNoteTre
         {note.title}
       </Text>
     </button>
-  )}
+  )
+}
 
 interface NoteTreeProps {
   notes: Note[],
@@ -31,10 +33,11 @@ interface NoteTreeProps {
 
 }
 
-export default function NoteTree({ notes, selectedNote, setSelectedNote }: NoteTreeProps) {
+export default function NoteTree({notes, selectedNote, setSelectedNote}: NoteTreeProps) {
   return (
     <div className="p-4 text-text-2 w-full flex flex-col">
-      {notes.map((note) => <DisplayNoteTree key={note.id} note={note} selectedNote={selectedNote} setSelectedNote={setSelectedNote} />)}
+      {notes.map((note) => <DisplayNoteTree key={note.id} note={note} selectedNote={selectedNote}
+                                            setSelectedNote={setSelectedNote} />)}
     </div>
   )
 }

@@ -1,70 +1,51 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useCallback,
-  useContext, useEffect,
-  useState,
-} from "react";
-import {useAccount, useDisconnect} from "wagmi";
-import {
-  ETHAccount,
-  GetAccountFromProvider
-} from 'aleph-sdk-ts/dist/accounts/ethereum'
-import {loadAggregate} from "../utils/aleph.ts";
+import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react'
+import { useAccount, useDisconnect } from 'wagmi'
+import { ETHAccount, GetAccountFromProvider } from 'aleph-sdk-ts/dist/accounts/ethereum'
 
-export interface AlephAccountAggregate {
-  items: string[]
-}
+const AlephContext = createContext<ETHAccount | null>(null)
 
-export interface AlephAccount {
-  account: ETHAccount
-  data: AlephAccountAggregate
-}
-
-const AlephContext = createContext<AlephAccount | null>(null);
-
-export const AlephContextProvider = ({ children }: PropsWithChildren) => {
+export const AlephContextProvider = ({children}: PropsWithChildren) => {
   const account = useAccount()
-  const [alephAccount, setAlephAccount] = useState<AlephAccount | null>(null)
-  const { disconnect } = useDisconnect()
+  const [alephAccount, setAlephAccount] = useState<ETHAccount | null>(null)
+  const {disconnect} = useDisconnect()
 
   const connectAleph = useCallback(async () => {
     try {
       const account = await GetAccountFromProvider(window.ethereum)
-      const data = await loadAggregate(account)
-      setAlephAccount({ account, data })
+      await account.askPubKey()
+      setAlephAccount(account)
     } catch (e) {
       disconnect()
       console.error(e)
     }
-  }, [disconnect]);
+  }, [disconnect])
 
   useEffect(() => {
     if (!account.isConnected) {
-      setAlephAccount(null);
+      setAlephAccount(null)
     }
-  }, [account]);
+  }, [account])
 
   if (!window.ethereum || !account.isConnected || alephAccount) {
     return (
       <AlephContext.Provider value={alephAccount}>
         {children}
       </AlephContext.Provider>
-    );
+    )
   }
-  connectAleph();
+  connectAleph()
 
   return (
     <AlephContext.Provider value={alephAccount}>
       {children}
     </AlephContext.Provider>
-  );
-};
+  )
+}
 
-export const useAlephAccount = (): AlephAccount | null => {
-  const context = useContext(AlephContext);
+export const useAlephAccount = (): ETHAccount | null => {
+  const context = useContext(AlephContext)
   if (context === undefined) {
-    throw new Error('useAlephAccount must be used within a "AlephAccountProvider"');
+    throw new Error('useAlephAccount must be used within a "AlephAccountProvider"')
   }
-  return context;
-};
+  return context
+}
