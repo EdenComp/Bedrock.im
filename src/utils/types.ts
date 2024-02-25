@@ -4,15 +4,22 @@ export const NoteLocalStatus = ["draft", "modified", "saved"] as const;
 export type NoteLocalStatus = (typeof NoteLocalStatus)[number];
 export const NoteLocalStatusSchema = z.enum(NoteLocalStatus);
 
-export const NoteMetadataSchema = z.object({
+export const NoteCommonMetadataSchema = z.object({
   secret: z.boolean(),
-  hash: z.string(),
+  owner: z.string(),
 });
-export const NoteLocalMetadataSchema = z.object({
-  secret: z.boolean(),
-  status: NoteLocalStatusSchema,
-  hash: z.string().optional(),
-});
+
+export const NoteRemoteMetadataSchema = z
+  .object({
+    hash: z.string(),
+  })
+  .merge(NoteCommonMetadataSchema);
+export const NoteLocalMetadataSchema = z
+  .object({
+    status: NoteLocalStatusSchema,
+    hash: z.string().optional(),
+  })
+  .merge(NoteCommonMetadataSchema);
 
 export const NoteAggregateDataSchema = z.object({
   title: z.string(),
@@ -29,9 +36,9 @@ export const NoteSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
     data: dataSchema,
   });
 
-export const UnauthenticatedNoteSchema = NoteSchema(NoteUnauthenticatedDataSchema).merge(NoteMetadataSchema);
-export const AuthenticatedNoteSchema = NoteSchema(NoteAuthenticatedDataSchema).merge(NoteMetadataSchema);
-export const AggregateNoteSchema = NoteSchema(NoteAggregateDataSchema).merge(NoteMetadataSchema);
+export const UnauthenticatedNoteSchema = NoteSchema(NoteUnauthenticatedDataSchema).merge(NoteRemoteMetadataSchema);
+export const AuthenticatedNoteSchema = NoteSchema(NoteAuthenticatedDataSchema).merge(NoteRemoteMetadataSchema);
+export const AggregateNoteSchema = NoteSchema(NoteAggregateDataSchema).merge(NoteRemoteMetadataSchema);
 export const LocalNoteSchema = NoteSchema(NoteLocalDataSchema).merge(NoteLocalMetadataSchema);
 
 export type UnauthenticatedNote = z.infer<typeof UnauthenticatedNoteSchema>;

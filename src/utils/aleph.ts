@@ -13,7 +13,10 @@ import {
 import { z } from "zod";
 import { isAxiosError } from "axios";
 
-export const getNote = async (account: ETHAccount, noteHash: string): Promise<AuthenticatedNote> => {
+export const getNote = async (
+  account: ETHAccount,
+  noteHash: string,
+): Promise<AuthenticatedNote | UnauthenticatedNote> => {
   const {
     posts: [note],
   } = await post.Get<UnauthenticatedNote>({
@@ -22,22 +25,25 @@ export const getNote = async (account: ETHAccount, noteHash: string): Promise<Au
   });
 
   const {
-    content: { secret, hash, data },
+    content: { secret, hash, data, owner },
   } = note;
 
   return {
-    data: secret
-      ? await encryptedBase64ToObject(account, data, NoteAuthenticatedDataSchema)
-      : base64ToObject(data, NoteAuthenticatedDataSchema),
-    hash,
     secret,
+    hash,
+    owner,
+    data: secret
+      ? owner === account.address
+        ? await encryptedBase64ToObject(account, data, NoteAuthenticatedDataSchema)
+        : data
+      : base64ToObject(data, NoteAuthenticatedDataSchema),
   };
 };
 
 export const createNote = async (
   account: ETHAccount,
   aggregateNotes: AggregateNote[],
-  { secret, data: { body, title, updatedAt } }: z.infer<typeof LocalNoteSchema>,
+  { secret, data: { body, title, updatedAt }, owner = account.address }: z.infer<typeof LocalNoteSchema>,
 ) => {
   const { item_hash: hash } = await post.Publish({
     account,
@@ -46,6 +52,7 @@ export const createNote = async (
     content: {
       secret,
       data: secret ? await objectToEncryptedBase64(account, { body }) : objectToBase64({ body }),
+      owner: owner,
     },
   });
   const newAggregateNotes: AggregateNote[] = [
@@ -56,10 +63,12 @@ export const createNote = async (
       },
       secret,
       hash,
+      owner,
     },
     ...aggregateNotes,
   ];
   await updateAggregate(account, objectToEncryptedBase64(account, newAggregateNotes));
+  return hash;
 };
 
 export const updateNote = async (account: ETHAccount, { hash, ...note }: LocalNote) => {
@@ -83,7 +92,6 @@ export const deleteNote = async (account: ETHAccount, hash: string) => {
 };
 
 export const updateAggregate = async <T>(account: ETHAccount, content: T) => {
-  console.warn("Updating aggregate", content);
   await aggregate.Publish<{ data: T }>({
     account,
     content: {
