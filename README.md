@@ -8,10 +8,6 @@ You can use Bedrock.im for almost anything, from taking notes to creating a blog
 Bedrock.im is offering a secure and private environment for your content.
 You will be soon able to share your notes privately with your team, or publicly with the world.
 
-## Getting started
-
-The project is currently under development, but you can already test it on this [link](https://aleph-decentralize-everything.vercel.app/).
-
 > :warning: You need an Ethereum Mainnet wallet on Metamask to use the application.
 > More chains and providers will be supported soon.
 
