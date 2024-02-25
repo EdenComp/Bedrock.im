@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import { Editor, RawDraftContentState } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { useAlephAccount } from '../../context/useAlephAccount.tsx'
+import { AlephContext } from '../../context/AlephContext.tsx'
 import { useCreatePost } from '../../utils/query.ts'
 
 type SaveButtonProps = {
@@ -22,7 +22,7 @@ const EncryptToggleButton: React.FC<EncryptToggleButtonProps> = ({onEncryptToggl
 
 
 const NoteEditor: React.FC<Editor['props']> = (props) => {
-  const alephAccount = useAlephAccount()
+  const alephAccount = useContext(AlephContext)
   const savedNote = localStorage.getItem('note') ?? undefined
   const savedEncryptionToggled = localStorage.getItem('encrypt') === 'true'
   const parsedNote = savedNote ? JSON.parse(savedNote) as RawDraftContentState : EMPTY_EDITOR_STATE

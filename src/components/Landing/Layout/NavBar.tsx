@@ -1,6 +1,6 @@
-import type { ReactElement } from 'react'
+import {ReactElement, useContext} from 'react'
 import MetamaskButton from './Navbar/MetamaskButton.tsx'
-import { useAlephAccount } from '../../../context/useAlephAccount.tsx'
+import { AlephContext } from '../../../context/AlephContext.tsx'
 
 const NavBarTab = ({page}: any): ReactElement => {
   return (
@@ -22,7 +22,7 @@ export default function NavBar(): ReactElement {
     {name: 'Team', href: '/team', current: false},
   ]
 
-  const alephAccount = useAlephAccount()
+  const alephAccount = useContext(AlephContext)
   if (alephAccount) pages.push({name: 'Notes', href: '/notes', current: false})
 
   return (

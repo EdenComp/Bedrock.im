@@ -5,44 +5,28 @@ import rehypeKatex from "rehype-katex";
 import rehypeRaw from 'rehype-raw'
 import remarkRehype from "remark-rehype";
 import type { ReactElement } from "react";
-import {NoteMockUp} from "../../types/NoteMockUp.ts";
-
+import {AggregateNote, NoteInput} from "src/utils/types.ts";
 
 interface BodyProps {
-  notes: NoteMockUp[],
+  notes: AggregateNote[],
   selectedNote: number,
-  setNotes: (notes: NoteMockUp[]) => void
-  actualNotes: string,
-  setActualNotes: (notes: string) => void
+  input: NoteInput,
+  setInput: (input: NoteInput) => void
 }
-export default function Body({ notes, selectedNote, setNotes, actualNotes, setActualNotes }: BodyProps): ReactElement {
 
-  const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (selectedNote != -1) {
-      let newNotes = [...notes]
-      newNotes[selectedNote].note = e.target.value
-      setNotes(newNotes)
-      setActualNotes(e.target.value)
-    }
-  }
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (selectedNote != -1) {
-      let newNotes = [...notes]
-      newNotes[selectedNote].title = e.target.value
-      setNotes(newNotes)
-    }
-  }
-
+export default function Body({ notes, selectedNote, input, setInput }: BodyProps): ReactElement {
   return (
     <div className="flex flex-col w-full h-full">
-
       <div className="text-text-1 text-4xl font-semibold w-full text-center border-b border-border-1 p-4">
         <input
           type="text"
           className="w-full text-center p-2 bg-interactive-1 text-text-2 outline-0 border-0 rounded-lg hover:bg-interactive-2 focus:bg-interactive-3 transition-colors duration-300"
-          value={selectedNote != -1 ? notes[selectedNote].title : "Select a note"}
-          onChange={handleTitleChange}
+          value={notes[selectedNote]?.data.title ?? "Select a note"}
+          disabled={selectedNote === -1}
+          onChange={() => setInput({
+            ...input,
+            title: notes[selectedNote]?.data.title ?? "",
+          })}
         />
       </div>
 
@@ -50,8 +34,12 @@ export default function Body({ notes, selectedNote, setNotes, actualNotes, setAc
         <div
           className="relative text-text-2 text-2xl font-semibold w-full h-full text-center p-4 border-r border-b border-border-1 transition-colors duration-300 ">
             <textarea
+              disabled={selectedNote === -1}
               className="w-full h-full bg-background-2 hover:bg-interactive-1 text-text-2 p-4 outline-0 border-0 rounded-lg resize-none transition-colors duration-300 focus:bg-background-2"
-              value={actualNotes} onChange={handleNoteChange}/>
+              value={input.body} onChange={(e) => setInput({
+                ...input,
+                title: e.target.value,
+              })}/>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                stroke="currentColor"
                className="w-10 h-10 absolute top-6 right-6 text-text-2 text-opacity-35 hover:text-opacity-100 transition-colors duration-300 hover:bg-interactive-1 hover:bg-opacity-100 rounded-lg p-2">
@@ -64,7 +52,7 @@ export default function Body({ notes, selectedNote, setNotes, actualNotes, setAc
           <Markdown
             className="text-left break-all px-4 py-3 bg-background-2 hover:bg-interactive-1 h-full rounded-lg transition-colors duration-300 focus:bg-background-2"
             remarkPlugins={[remarkGfm, remarkMath, remarkRehype]}
-            rehypePlugins={[rehypeKatex, rehypeRaw]}>{actualNotes}</Markdown>
+            rehypePlugins={[rehypeKatex, rehypeRaw]}>{input.body}</Markdown>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                stroke="currentColor"
                className="w-10 h-10 absolute top-6 right-6 text-text-2 text-opacity-35 hover:text-opacity-100 transition-colors duration-300 hover:bg-interactive-1 hover:bg-opacity-100 rounded-lg p-2">
@@ -72,7 +60,6 @@ export default function Body({ notes, selectedNote, setNotes, actualNotes, setAc
                   d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
           </svg>
-
         </div>
       </div>
     </div>

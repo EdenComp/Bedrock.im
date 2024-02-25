@@ -88,13 +88,11 @@ export const updateAggregate = async <T>(account: ETHAccount, content: T) => {
 }
 
 export const loadAggregate = async <T>(account: ETHAccount, defaultValue: T): Promise<T | undefined> => {
-  console.log('Loading aggregate', defaultValue)
   try {
     const result = (await aggregate.Get<{ [alephAggregateKey]: { data: T } }>({
       address: account.address,
       key: alephAggregateKey,
     }))
-    console.log('found', result)
     return result[alephAggregateKey].data
   } catch (e: unknown) {
     if (isAxiosError(e) && e.response?.status === 404) {

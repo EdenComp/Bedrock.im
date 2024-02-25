@@ -1,9 +1,9 @@
-import { useAlephAccount } from '../context/useAlephAccount.tsx'
+import { AlephContext } from '../context/AlephContext.tsx'
 import { encryptedBase64ToObject, objectToEncryptedBase64 } from '../utils/crypto.ts'
 import { AggregateNote, AggregateNoteSchema, LocalNote } from '../utils/types.ts'
 import { loadAggregate } from '../utils/aleph.ts'
 import { z } from 'zod'
-import { useCallback, useState } from 'react'
+import {useCallback, useContext, useState} from 'react'
 
 export interface Notes {
   aggregateNotes: AggregateNote[]
@@ -12,7 +12,7 @@ export interface Notes {
 
 export default function useNotes(): Notes | null {
   const [result, setResult] = useState<Notes | null>(null)
-  const alephAccount = useAlephAccount()
+  const alephAccount = useContext(AlephContext)
 
   const getNotes = useCallback(async () => {
     if (!alephAccount)
