@@ -26,6 +26,14 @@ export default function Body({ notes, selectedNote, setNotes, actualNotes, setAc
     }
   }
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (selectedNote != -1) {
+      let newNotes = [...notes]
+      newNotes[selectedNote].title = e.target.value
+      setNotes(newNotes)
+    }
+  }
+
   return (
     <div className="flex flex-col w-full h-full">
 

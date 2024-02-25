@@ -18,7 +18,9 @@ export default function Home(): ReactElement {
             </>
           }
         />
-        <button className="bg-card text-text-1 p-4 rounded-lg mb-20 w-1/4 mx-auto transition-colors duration-300 hover:shadow-lg bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3">
+        <button className="bg-card text-text-1 p-4 rounded-lg mb-20 w-1/4 mx-auto transition-colors duration-300 hover:shadow-lg bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3"
+                onClick={() => window.location.href = "/pricing"}
+        >
           Get Started
         </button>
       </div>
