@@ -1,5 +1,4 @@
 import Home from './pages/Home'
-import Documentation from './pages/Documentation'
 import Pricing from './pages/Pricing'
 import Notes from './pages/Notes'
 import Team from './pages/Team'
@@ -10,7 +9,6 @@ function App() {
     <>
       <Routes>
         <Route path="/" Component={Home} />
-        <Route path="/documentation" Component={Documentation} />
         <Route path="/pricing" Component={Pricing} />
         <Route path="/team" Component={Team} />
         <Route path="/notes" Component={Notes} />

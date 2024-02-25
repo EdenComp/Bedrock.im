@@ -18,7 +18,6 @@ export default function NavBar(): ReactElement {
 
   const pages = [
     {name: 'Home', href: '/', current: true},
-    {name: 'Documentation', href: '/documentation', current: false},
     {name: 'Pricing', href: '/pricing', current: false},
     {name: 'Team', href: '/team', current: false},
   ]
