@@ -5,7 +5,6 @@ import { base64ToObject, encryptedBase64ToObject, objectToBase64, objectToEncryp
 import {
   AggregateNote,
   AuthenticatedNote,
-  LocalNote,
   LocalNoteSchema,
   NoteAuthenticatedDataSchema,
   UnauthenticatedNote,
@@ -68,17 +67,24 @@ export const createNote = async (
     },
     ...aggregateNotes,
   ];
-  await updateAggregate(account, objectToEncryptedBase64(account, newAggregateNotes));
+  await updateAggregate(account, await objectToEncryptedBase64(account, newAggregateNotes));
   return hash;
 };
 
-export const updateNote = async (account: ETHAccount, { hash, ...note }: LocalNote) => {
+export const updateNote = async (
+  account: ETHAccount,
+  { secret, data: { body }, hash, owner = account.address }: z.infer<typeof LocalNoteSchema>,
+) => {
   await post.Publish({
     account,
     channel: alephChannel,
     postType: "amend",
     ref: hash,
-    content: note,
+    content: {
+      secret,
+      data: secret ? await objectToEncryptedBase64(account, { body }) : objectToBase64({ body }),
+      owner: owner,
+    },
   });
 };
 

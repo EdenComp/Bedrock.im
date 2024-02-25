@@ -4,7 +4,7 @@ import { LocalNote } from "../../utils/types.ts";
 
 interface BodyProps {
   selectedNote: number;
-  currentNote: LocalNote;
+  currentNote: LocalNote | null;
   setCurrentNote: (note: LocalNote) => void;
 }
 
@@ -15,17 +15,19 @@ export default function Body({ selectedNote, currentNote, setCurrentNote }: Body
         <input
           type="text"
           className="w-full text-center p-2 bg-interactive-1 text-text-2 outline-0 border-0 rounded-lg hover:bg-interactive-2 focus:bg-interactive-3 transition-colors duration-300"
-          value={currentNote.data.title ?? "Select a note"}
+          value={currentNote?.data.title ?? "Select a note"}
           disabled={selectedNote === -1}
-          onChange={({ target: { value } }) =>
+          onChange={({ target: { value } }) => {
+            if (!currentNote) return;
             setCurrentNote({
               ...currentNote,
               data: {
                 ...currentNote.data,
                 title: value,
               },
-            })
-          }
+              status: currentNote.status === "saved" ? "modified" : currentNote.status,
+            });
+          }}
         />
       </div>
 
@@ -34,16 +36,18 @@ export default function Body({ selectedNote, currentNote, setCurrentNote }: Body
           <textarea
             disabled={selectedNote === -1}
             className="w-full h-full bg-background-2 hover:bg-interactive-1 text-text-2 p-4 outline-0 border-0 rounded-lg resize-none transition-colors duration-300 focus:bg-background-2"
-            value={currentNote.data.body ?? "Start typing to see the reflected changes"}
-            onChange={({ target: { value } }) =>
+            value={currentNote?.data.body ?? ""}
+            onChange={({ target: { value } }) => {
+              if (!currentNote) return;
               setCurrentNote({
                 ...currentNote,
                 data: {
                   ...currentNote.data,
                   body: value,
                 },
-              })
-            }
+                status: currentNote.status === "saved" ? "modified" : currentNote.status,
+              });
+            }}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +65,7 @@ export default function Body({ selectedNote, currentNote, setCurrentNote }: Body
           </svg>
         </div>
         <div className="relative w-full h-full p-4 border-l border-b border-border-1 mx-auto max-w-1/3 overflow-y-auto transition-colors duration-300">
-          <MarkdownVisualiser rawMarkdown={currentNote.data.body} />
+          <MarkdownVisualiser rawMarkdown={currentNote?.data.body ?? ""} />
         </div>
       </div>
     </div>
