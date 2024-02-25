@@ -45,8 +45,3 @@ export type UnauthenticatedNote = z.infer<typeof UnauthenticatedNoteSchema>;
 export type AuthenticatedNote = z.infer<typeof AuthenticatedNoteSchema>;
 export type AggregateNote = z.infer<typeof AggregateNoteSchema>;
 export type LocalNote = z.infer<typeof LocalNoteSchema>;
-
-export interface NoteInput {
-  title: string;
-  body: string;
-}
