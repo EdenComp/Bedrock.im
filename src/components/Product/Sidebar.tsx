@@ -1,7 +1,8 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement, useCallback, useContext } from "react";
 import NoteTree from "./Sidebar/NoteTree.tsx";
-import { LocalNote } from "../../utils/types.ts";
+import { AggregateNote, LocalNote } from "../../utils/types.ts";
 import { AlephContext } from "../../context/AlephContext.tsx";
+import { createNote, updateNote } from "../../utils/aleph.ts";
 
 interface SidebarProps {
   notes: LocalNote[];
@@ -12,6 +13,35 @@ interface SidebarProps {
 
 export default function Sidebar({ notes, selectedNote, setNotes, setSelectedNote }: SidebarProps): ReactElement {
   const alephAccount = useContext(AlephContext);
+
+  const saveNote = useCallback(async () => {
+    const currentNote = notes[selectedNote];
+    if (!alephAccount || currentNote.status === "saved") return;
+
+    let hash = currentNote.hash;
+    try {
+      if (currentNote.status === "modified") {
+        await updateNote(alephAccount, notes[selectedNote]);
+      } else {
+        hash = await createNote(
+          alephAccount,
+          notes.filter((note) => note.hash !== undefined) as AggregateNote[],
+          notes[selectedNote],
+        );
+      }
+      setNotes((prevState) => {
+        const result = [...prevState];
+        result[selectedNote] = {
+          ...result[selectedNote],
+          status: "saved",
+          hash,
+        };
+        return result;
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, [alephAccount, notes, selectedNote, setNotes]);
 
   if (!alephAccount) return <></>;
 
@@ -49,7 +79,11 @@ export default function Sidebar({ notes, selectedNote, setNotes, setSelectedNote
         >
           New
         </button>
-        <button className="bg-card text-text-1 p-4 rounded-lg mb-20 w-1/4 mx-auto transition-colors duration-300 hover:shadow-lg bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3 absolute -bottom-12 right-12">
+        <button
+          onClick={saveNote}
+          disabled={selectedNote === -1 || notes[selectedNote].status === "saved"}
+          className="bg-card text-text-1 p-4 rounded-lg mb-20 w-1/4 mx-auto transition-colors duration-300 hover:shadow-lg bg-interactive-1 hover:bg-interactive-2 active:bg-interactive-3 border border-border-1 hover:border-border-2 active:border-border-3 absolute -bottom-12 right-12"
+        >
           Save
         </button>
       </div>
