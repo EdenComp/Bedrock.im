@@ -4,13 +4,13 @@ import Markdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
-import { NoteMockUpStatus as NoteStatus, NoteMockUp as Note } from "../../../utils/NoteMockUp.ts";
+import { NoteMockUpStatus as NoteStatus } from "../../../utils/NoteMockUp.ts";
 
 export default function Notes(): ReactElement {
   const [actualNotes, setActualNotes] = useState("");
   const [selectedNote, setSelectedNote] = useState(4);
 
-  const notes: Note[] = [
+  const [notes, setNotes] = useState([
     {
       id: 0,
       title: "Todolist Feb",
@@ -81,13 +81,22 @@ export default function Notes(): ReactElement {
       lastUpdated: new Date(),
       note: "## Goals\n- [ ] Lose weight\n- [ ] Get fit\n- [ ] Get rich\n",
     },
-  ];
+  ]);
 
   useEffect(() => {
     if (selectedNote != -1) {
       setActualNotes(notes[selectedNote].note);
     }
-  }, [selectedNote, notes]);
+  }, [selectedNote]);
+
+  const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setActualNotes(e.target.value);
+    let newNotes = [...notes];
+    newNotes[selectedNote].note = e.target.value;
+    newNotes[selectedNote].lastUpdated = new Date();
+    newNotes[selectedNote].status = NoteStatus.CHANGED;
+    setNotes(newNotes);
+  };
 
   return (
     <div className="min-w-screen h-screen bg-background-1 flex flex-row">
@@ -105,16 +114,16 @@ export default function Notes(): ReactElement {
           </div>
         </div>
         <div className="flex flex-row w-full h-full">
-          <div className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-r border-b border-border-1 hover:bg-background-2">
+          <div className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-r border-b border-border-1">
             <textarea
-              className="w-full h-full bg-background-1 text-text-2 p-4 border-0 outline-0"
+              className="w-full h-full bg-background-1 text-text-2 p-4 border-0 outline-0 hover:bg-interactive-1 focus:bg-background-2 transition-colors duration-300"
               value={actualNotes}
-              onChange={(e) => setActualNotes(e.target.value)}
+              onChange={handleNoteChange}
             />
           </div>
           <div className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-l border-b border-border-1 hover:bg-background-2 mx-auto max-w-1/3 overflow-y-auto">
             <Markdown
-              className="text-left break-all px-4 py-3"
+              className="text-left break-all px-4 py-3 hover:bg-interactive-1 transition-colors duration-300 h-full"
               remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeKatex]}
             >
