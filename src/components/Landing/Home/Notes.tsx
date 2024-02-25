@@ -96,7 +96,7 @@ export default function Notes(): ReactElement {
     newNotes[selectedNote].lastUpdated = new Date();
     newNotes[selectedNote].status = NoteStatus.CHANGED;
     setNotes(newNotes);
-  }
+  };
 
   return (
     <div className="min-w-screen h-screen bg-background-1 flex flex-row">
