@@ -1,19 +1,13 @@
-"use client";
-import { useMotionValue , useMotionTemplate, motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import { cn } from "../../utils/cn.ts";
+'use client';
+import { useMotionValue, useMotionTemplate, motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { cn } from '../../utils/cn.ts';
 
-export const EvervaultCard = ({
-                                text,
-                                className,
-                              }: {
-  text?: string;
-  className?: string;
-}) => {
+export const EvervaultCard = ({ text, className }: { text?: string; className?: string }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const [randomString, setRandomString] = useState("");
+  const [randomString, setRandomString] = useState('');
 
   useEffect(() => {
     const str = generateRandomString(1500);
@@ -32,19 +26,15 @@ export const EvervaultCard = ({
   return (
     <div
       className={cn(
-        "p-0.5  bg-transparent aspect-square  flex items-center justify-center w-full h-full relative",
-        className
+        'p-0.5  bg-transparent aspect-square  flex items-center justify-center w-full h-full relative',
+        className,
       )}
     >
       <div
         onMouseMove={onMouseMove}
         className="group/card rounded-3xl w-full relative overflow-hidden bg-transparent flex items-center justify-center h-full"
       >
-        <CardPattern
-          mouseX={mouseX}
-          mouseY={mouseY}
-          randomString={randomString}
-        />
+        <CardPattern mouseX={mouseX} mouseY={mouseY} randomString={randomString} />
         <div className="relative z-10 flex items-center justify-center">
           <div className="relative h-44 w-44  rounded-full flex items-center justify-center text-white font-bold text-4xl">
             <div className="absolute w-full h-full bg-white/[0.8] dark:bg-black/[0.8] blur-sm rounded-full" />
@@ -79,10 +69,9 @@ export function CardPattern({ mouseX, mouseY, randomString }: any) {
   );
 }
 
-const characters =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 export const generateRandomString = (length: number) => {
-  let result = "";
+  let result = '';
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }

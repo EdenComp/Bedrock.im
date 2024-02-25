@@ -1,14 +1,14 @@
-import { ReactElement, useEffect, useState } from 'react'
-import Sidebar from './Sidebar.tsx'
-import Markdown from 'react-markdown'
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
-import remarkGfm from 'remark-gfm'
-import {NoteMockUpStatus as NoteStatus,NoteMockUp as Note} from "../../../utils/NoteMockUp.ts";
+import { ReactElement, useEffect, useState } from 'react';
+import Sidebar from './Sidebar.tsx';
+import Markdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
+import { NoteMockUpStatus as NoteStatus, NoteMockUp as Note } from '../../../utils/NoteMockUp.ts';
 
 export default function Notes(): ReactElement {
-  const [actualNotes, setActualNotes] = useState('')
-  const [selectedNote, setSelectedNote] = useState(4)
+  const [actualNotes, setActualNotes] = useState('');
+  const [selectedNote, setSelectedNote] = useState(4);
 
   const notes: Note[] = [
     {
@@ -81,23 +81,21 @@ export default function Notes(): ReactElement {
       lastUpdated: new Date(),
       note: '## Goals\n- [ ] Lose weight\n- [ ] Get fit\n- [ ] Get rich\n',
     },
-  ]
+  ];
 
   useEffect(() => {
     if (selectedNote != -1) {
-      setActualNotes(notes[selectedNote].note)
+      setActualNotes(notes[selectedNote].note);
     }
-  }, [selectedNote])
+  }, [selectedNote]);
 
   return (
     <div className="min-w-screen h-screen bg-background-1 flex flex-row">
-      <div className={"w-1/5"}>
+      <div className={'w-1/5'}>
         <Sidebar notes={notes} selectedNote={selectedNote} setSelectedNote={setSelectedNote} />
       </div>
       <div className="flex flex-col w-full h-full">
-        <div className="text-text-1 text-2xl font-semibold w-full text-center border-b border-border-1 p-4">
-          Notes
-        </div>
+        <div className="text-text-1 text-2xl font-semibold w-full text-center border-b border-border-1 p-4">Notes</div>
         <div className="flex flex-row items-center justify-center w-full">
           <div className="text-text-2 text-lg font-semibold w-full text-center p-4 border-r border-b border-border-1">
             Editor
@@ -108,13 +106,23 @@ export default function Notes(): ReactElement {
         </div>
         <div className="flex flex-row w-full h-full">
           <div className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-r border-b border-border-1 hover:bg-background-2">
-            <textarea className="w-full h-full bg-background-1 text-text-2 p-4 border-0 outline-0" value={actualNotes} onChange={(e) => setActualNotes(e.target.value)} />
+            <textarea
+              className="w-full h-full bg-background-1 text-text-2 p-4 border-0 outline-0"
+              value={actualNotes}
+              onChange={(e) => setActualNotes(e.target.value)}
+            />
           </div>
           <div className="text-text-2 text-lg font-semibold w-full h-full text-center p-4 border-l border-b border-border-1 hover:bg-background-2 mx-auto max-w-1/3 overflow-y-auto">
-            <Markdown className="text-left break-all px-4 py-3" remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>{actualNotes}</Markdown>
+            <Markdown
+              className="text-left break-all px-4 py-3"
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {actualNotes}
+            </Markdown>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

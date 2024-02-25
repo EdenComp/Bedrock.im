@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -19,11 +16,10 @@ export default {
         'solid-2': '#9A5CD0',
         'text-1': '#D19DFF',
         'text-2': '#ECD9FA',
-        'new': '#FF5555',
-        'changed': '#FFE777',
-      }
-    }
+        new: '#FF5555',
+        changed: '#FFE777',
+      },
+    },
   },
   plugins: [],
-}
-
+};

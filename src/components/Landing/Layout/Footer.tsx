@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { ReactElement } from 'react';
 
 export default function Footer(): ReactElement {
   return (
@@ -7,5 +7,5 @@ export default function Footer(): ReactElement {
         <p className="text-center text-text-1 text-sm">© 2024 Bedrock. All rights reserved.</p>
       </div>
     </footer>
-  )
+  );
 }

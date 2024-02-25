@@ -2,50 +2,40 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    "eslint-config-prettier",
+    'eslint-config-prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    "plugin:import/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:react/recommended",
-    'plugin:react-hooks/recommended'
+    'plugin:import/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
-    "no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "args": "after-used",
-        "ignoreRestSiblings": true,
-        "argsIgnorePattern": "^_"
-      }
-    ],
-    "react/react-in-jsx-scope": "off",
-    'react-refresh/only-export-components': [
+    'no-unused-vars': [
       'warn',
-      { allowConstantExport: true },
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: true,
+        argsIgnorePattern: '^_',
+      },
     ],
-    "@typescript-eslint/no-explicit-any": "warn",
+    'react/react-in-jsx-scope': 'off',
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    '@typescript-eslint/no-explicit-any': 'warn',
   },
   settings: {
     react: {
-      "version": "detect"
+      version: 'detect',
     },
-    "import/resolver": {
-      "node": {
-        "paths": [
-          "src"
-        ],
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
-      }
-    }
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
-}
+};

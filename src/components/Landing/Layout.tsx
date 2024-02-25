@@ -1,6 +1,6 @@
-import NavBar from "./Layout/NavBar.tsx";
+import NavBar from './Layout/NavBar.tsx';
 import type { ReactElement } from 'react';
-import Footer from "./Layout/Footer.tsx";
+import Footer from './Layout/Footer.tsx';
 
 export default function Layout({ children }: { children: ReactElement[] | ReactElement }): ReactElement {
   return (
@@ -11,5 +11,5 @@ export default function Layout({ children }: { children: ReactElement[] | ReactE
       </div>
       <Footer />
     </div>
-  )
+  );
 }

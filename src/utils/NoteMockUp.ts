@@ -5,9 +5,9 @@ export enum NoteMockUpStatus {
 }
 
 export type NoteMockUp = {
-  id: number,
-  title: string,
-  lastUpdated: Date,
-  status: NoteMockUpStatus,
-  note: string
-}
+  id: number;
+  title: string;
+  lastUpdated: Date;
+  status: NoteMockUpStatus;
+  note: string;
+};

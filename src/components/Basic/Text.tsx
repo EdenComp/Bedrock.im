@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { ReactElement } from 'react';
 
 interface TitleProps {
   children: string;
@@ -6,9 +6,5 @@ interface TitleProps {
 }
 
 export default function Text({ children, className = '' }: TitleProps): ReactElement {
-  return (
-    <h1 className={className}>
-      {children}
-    </h1>
-  )
+  return <h1 className={className}>{children}</h1>;
 }

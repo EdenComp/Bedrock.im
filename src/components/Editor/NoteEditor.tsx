@@ -1,55 +1,57 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
-import { Editor, RawDraftContentState } from 'react-draft-wysiwyg'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { AlephContext } from '../../context/AlephContext.tsx'
-import { useCreatePost } from '../../utils/query.ts'
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Editor, RawDraftContentState } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { AlephContext } from '../../context/AlephContext.tsx';
+import { useCreatePost } from '../../utils/query.ts';
 
 type SaveButtonProps = {
-  onSave: () => void
-}
+  onSave: () => void;
+};
 
 type EncryptToggleButtonProps = {
-  onEncryptToggle: (state: boolean) => void
-  checked: boolean
-}
+  onEncryptToggle: (state: boolean) => void;
+  checked: boolean;
+};
 
-const EMPTY_EDITOR_STATE = {blocks: [], entityMap: {}}
+const EMPTY_EDITOR_STATE = { blocks: [], entityMap: {} };
 
-const SaveButton: React.FC<SaveButtonProps> = ({onSave}) =>
-  <button className="text-black" onClick={onSave}>Save</button>
-const EncryptToggleButton: React.FC<EncryptToggleButtonProps> = ({onEncryptToggle, checked}) =>
-  <input checked={checked} onChange={event => onEncryptToggle(event.target.checked)} type="checkbox" />
-
+const SaveButton: React.FC<SaveButtonProps> = ({ onSave }) => (
+  <button className="text-black" onClick={onSave}>
+    Save
+  </button>
+);
+const EncryptToggleButton: React.FC<EncryptToggleButtonProps> = ({ onEncryptToggle, checked }) => (
+  <input checked={checked} onChange={(event) => onEncryptToggle(event.target.checked)} type="checkbox" />
+);
 
 const NoteEditor: React.FC<Editor['props']> = (props) => {
-  const alephAccount = useContext(AlephContext)
-  const savedNote = localStorage.getItem('note') ?? undefined
-  const savedEncryptionToggled = localStorage.getItem('encrypt') === 'true'
-  const parsedNote = savedNote ? JSON.parse(savedNote) as RawDraftContentState : EMPTY_EDITOR_STATE
-  const [isEncryptionToggled, setEncryptionToggled] = useState<boolean>(savedEncryptionToggled)
-  const [note, setNote] = useState(parsedNote)
+  const alephAccount = useContext(AlephContext);
+  const savedNote = localStorage.getItem('note') ?? undefined;
+  const savedEncryptionToggled = localStorage.getItem('encrypt') === 'true';
+  const parsedNote = savedNote ? (JSON.parse(savedNote) as RawDraftContentState) : EMPTY_EDITOR_STATE;
+  const [isEncryptionToggled, setEncryptionToggled] = useState<boolean>(savedEncryptionToggled);
+  const [note, setNote] = useState(parsedNote);
 
-  useEffect(() => localStorage.setItem('encrypt', isEncryptionToggled.toString()), [isEncryptionToggled])
-  useEffect(() => localStorage.setItem('note', JSON.stringify(note)), [note])
+  useEffect(() => localStorage.setItem('encrypt', isEncryptionToggled.toString()), [isEncryptionToggled]);
+  useEffect(() => localStorage.setItem('note', JSON.stringify(note)), [note]);
 
-  const {mutateAsync: createNoteAsync} = useCreatePost()
+  const { mutateAsync: createNoteAsync } = useCreatePost();
 
   const submitNote = useCallback(async () => {
-    if (!alephAccount) throw new Error('No Aleph account found')
-    if (note.blocks.every(block => block.text === '')) throw new Error('Empty note')
-    let bufferNote = Buffer.from(JSON.stringify(note), 'utf8')
-    if (isEncryptionToggled)
-      bufferNote = Buffer.from(await alephAccount.encrypt(bufferNote))
+    if (!alephAccount) throw new Error('No Aleph account found');
+    if (note.blocks.every((block) => block.text === '')) throw new Error('Empty note');
+    let bufferNote = Buffer.from(JSON.stringify(note), 'utf8');
+    if (isEncryptionToggled) bufferNote = Buffer.from(await alephAccount.encrypt(bufferNote));
     await createNoteAsync({
       content: {
         secret: savedEncryptionToggled,
         note: bufferNote.toString('base64'),
       },
       account: alephAccount,
-    })
-  }, [alephAccount, createNoteAsync, note, isEncryptionToggled])
+    });
+  }, [alephAccount, createNoteAsync, note, isEncryptionToggled]);
 
-  const handleSave = () => submitNote()
+  const handleSave = () => submitNote();
 
   return (
     <Editor
@@ -57,10 +59,12 @@ const NoteEditor: React.FC<Editor['props']> = (props) => {
         <SaveButton key={1} onSave={handleSave} />,
         <EncryptToggleButton key={2} checked={isEncryptionToggled} onEncryptToggle={setEncryptionToggled} />,
       ]}
-      editorStyle={{width: '70vw'}}
+      editorStyle={{ width: '70vw' }}
       onChange={setNote}
-      defaultContentState={note}  {...props} />
-  )
-}
+      defaultContentState={note}
+      {...props}
+    />
+  );
+};
 
-export default NoteEditor
+export default NoteEditor;

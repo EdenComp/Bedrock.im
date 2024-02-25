@@ -1,45 +1,36 @@
-import {PropsWithChildren, useCallback, useEffect, useState} from "react";
-import {
-  AlephContext,
-} from "../context/AlephContext";
-import {useAccount, useDisconnect} from "wagmi";
-import {
-  ETHAccount,
-  GetAccountFromProvider
-} from "aleph-sdk-ts/dist/accounts/ethereum";
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { AlephContext } from '../context/AlephContext';
+import { useAccount, useDisconnect } from 'wagmi';
+import { ETHAccount, GetAccountFromProvider } from 'aleph-sdk-ts/dist/accounts/ethereum';
 
 export default function Providers({ children }: PropsWithChildren) {
-  const account = useAccount()
-  const {disconnect} = useDisconnect()
-  const [alephAccount, setAlephAccount] = useState<ETHAccount | null>(null)
-  const [isFetching, setIsFetching] = useState(false)
+  const account = useAccount();
+  const { disconnect } = useDisconnect();
+  const [alephAccount, setAlephAccount] = useState<ETHAccount | null>(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const connectAleph = useCallback(async () => {
-    if (!account.isConnected) return
+    if (!account.isConnected) return;
     try {
-      setIsFetching(true)
-      const alephAccount = await GetAccountFromProvider(window.ethereum)
-      setAlephAccount(alephAccount)
+      setIsFetching(true);
+      const alephAccount = await GetAccountFromProvider(window.ethereum);
+      setAlephAccount(alephAccount);
     } catch (e) {
-      disconnect()
-      console.error(e)
+      disconnect();
+      console.error(e);
     } finally {
-      setIsFetching(false)
+      setIsFetching(false);
     }
-  }, [account.isConnected, disconnect])
+  }, [account.isConnected, disconnect]);
 
   useEffect(() => {
     if (!account.isConnected) {
-      setAlephAccount(null)
+      setAlephAccount(null);
     }
     if (window.ethereum && (!account.isConnected || !alephAccount) && !isFetching) {
-      connectAleph()
+      connectAleph();
     }
-  }, [account])
+  }, [account]);
 
-  return (
-    <AlephContext.Provider value={alephAccount}>
-      {children}
-    </AlephContext.Provider>
-  );
+  return <AlephContext.Provider value={alephAccount}>{children}</AlephContext.Provider>;
 }
