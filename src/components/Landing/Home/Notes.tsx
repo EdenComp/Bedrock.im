@@ -87,7 +87,7 @@ export default function Notes(): ReactElement {
     if (selectedNote != -1) {
       setActualNotes(notes[selectedNote].note);
     }
-  }, [selectedNote]);
+  }, [selectedNote, notes]);
 
   return (
     <div className="min-w-screen h-screen bg-background-1 flex flex-row">

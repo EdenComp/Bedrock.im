@@ -16,7 +16,7 @@ export default function Notes(): ReactElement {
     if (notes?.aggregateNotes && selectedNote === -1) {
       setSelectedNote(0);
     }
-  }, []);
+  }, [notes?.aggregateNotes, selectedNote]);
 
   useEffect(() => {
     if (selectedNote != -1) {
@@ -26,7 +26,7 @@ export default function Notes(): ReactElement {
         // TODO: body: notes?.aggregateNotes[selectedNote].body ?? "",
       });
     }
-  }, [selectedNote]);
+  }, [selectedNote, notes?.aggregateNotes]);
 
   return (
     <div className="min-w-screen h-screen bg-background-1 flex flex-row">
