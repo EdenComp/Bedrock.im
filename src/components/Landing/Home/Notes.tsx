@@ -4,7 +4,7 @@ import Markdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
-import { NoteMockUpStatus as NoteStatus, NoteMockUp as Note } from "../../../utils/NoteMockUp.ts";
+import { NoteMockUpStatus as NoteStatus } from "../../../utils/NoteMockUp.ts";
 
 export default function Notes(): ReactElement {
   const [actualNotes, setActualNotes] = useState("");
