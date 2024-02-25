@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import NoteTree from "./Sidebar/NoteTree.tsx";
-import {AggregateNote} from "src/utils/types.ts";
+import {AggregateNote} from "../../utils/types.ts";
 
 interface SidebarProps {
   notes: AggregateNote[],

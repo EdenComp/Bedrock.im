@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useState } from 'react'
 import Sidebar from '../components/Product/Sidebar.tsx'
 import Body from '../components/Product/Body.tsx'
 import useNotes from '../hooks/useNotes.ts'
-import {NoteInput} from "src/utils/types.ts";
+import {NoteInput} from "../utils/types.ts";
 
 export default function Notes(): ReactElement {
   const [input, setInput] = useState<NoteInput>({

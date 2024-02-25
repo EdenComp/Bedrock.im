@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import NoteTree from "./Sidebar/NoteTree.tsx";
-import {NoteMockUp as Note} from "../../../types/NoteMockUp.ts";
+import {NoteMockUp as Note} from "../../../utils/NoteMockUp.ts";
 
 interface SidebarProps {
   notes: Note[],
