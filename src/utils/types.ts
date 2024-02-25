@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-export const NoteLocalStatusSchema = z.enum(["draft", "modified", "saved"]);
+export const NoteLocalStatus = ["draft", "modified", "saved"] as const;
+export type NoteLocalStatus = (typeof NoteLocalStatus)[number];
+export const NoteLocalStatusSchema = z.enum(NoteLocalStatus);
 
 export const NoteMetadataSchema = z.object({
   secret: z.boolean(),

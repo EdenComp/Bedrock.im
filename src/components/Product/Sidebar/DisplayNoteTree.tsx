@@ -1,20 +1,18 @@
-import { AggregateNote } from "../../../utils/types.ts";
+import { LocalNote, NoteLocalStatus } from "../../../utils/types.ts";
 import Text from "../../Basic/Text.tsx";
 
 interface DisplayNoteTreeProps {
-  note: AggregateNote;
+  note: LocalNote;
   index: number;
   selectedNote: number;
   setSelectedNote: (note: number) => void;
 }
 
-/*
-const DisplayColor: Record<NoteMockUpStatus, string> = {
-  [NoteMockUpStatus.NEW]: ' text-new ',
-  [NoteMockUpStatus.CHANGED]: ' text-changed ',
-  [NoteMockUpStatus.COMPLETE]: ' text-text-2 '
-}
-*/
+const DisplayColor: Record<NoteLocalStatus, string> = {
+  draft: " text-new ",
+  modified: " text-changed ",
+  saved: " text-text-2 ",
+};
 
 const DisplayNoteTree = ({ note, index, selectedNote, setSelectedNote }: DisplayNoteTreeProps) => {
   return (
@@ -34,9 +32,7 @@ const DisplayNoteTree = ({ note, index, selectedNote, setSelectedNote }: Display
           <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
       )}
-      <Text
-      /*className={DisplayColor[note.status]}> TODO */
-      >
+      <Text className={DisplayColor[note.status]}>
         {note.data.title.length > (selectedNote === index ? 20 : 22)
           ? note.data.title.substring(0, selectedNote === index ? 20 : 22) + "..."
           : note.data.title}

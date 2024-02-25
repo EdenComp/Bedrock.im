@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useMemo, useState } from "react";
 import Sidebar from "../components/Product/Sidebar.tsx";
 import Body from "../components/Product/Body.tsx";
 import useNotes from "../hooks/useNotes.ts";
@@ -13,29 +13,30 @@ export default function Notes(): ReactElement {
   const notes = useNotes();
 
   useEffect(() => {
-    if (notes?.aggregateNotes && selectedNote === -1) {
+    if (notes?.notes && notes.notes.length > 0 && selectedNote === -1) {
       setSelectedNote(0);
     }
-  }, [notes?.aggregateNotes, selectedNote]);
+  }, [notes?.notes, selectedNote]);
 
   useEffect(() => {
     if (selectedNote != -1) {
       setInput({
-        title: notes?.aggregateNotes[selectedNote].data.title ?? "",
-        body: "",
-        // TODO: body: notes?.aggregateNotes[selectedNote].body ?? "",
+        title: notes?.notes[selectedNote].data.title ?? "",
+        body: notes?.notes[selectedNote].data.body ?? "",
       });
     }
-  }, [selectedNote, notes?.aggregateNotes]);
+  }, [selectedNote, notes?.notes]);
 
-  return (
-    <div className="min-w-screen h-screen bg-background-1 flex flex-row">
-      {notes !== null && (
-        <>
-          <Sidebar notes={notes.aggregateNotes} selectedNote={selectedNote} setSelectedNote={setSelectedNote} />
-          <Body notes={notes.aggregateNotes} selectedNote={selectedNote} input={input} setInput={setInput} />
-        </>
-      )}
-    </div>
-  );
+  const components = useMemo(() => {
+    if (!notes) return <></>;
+
+    return (
+      <>
+        <Sidebar notes={notes.notes} selectedNote={selectedNote} setSelectedNote={setSelectedNote} />
+        <Body notes={notes.notes} selectedNote={selectedNote} input={input} setInput={setInput} />
+      </>
+    );
+  }, [notes, selectedNote, input]);
+
+  return <div className="min-w-screen h-screen bg-background-1 flex flex-row">{components}</div>;
 }

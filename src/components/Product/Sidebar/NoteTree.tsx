@@ -1,8 +1,8 @@
 import DisplayNoteTree from "./DisplayNoteTree.tsx";
-import { AggregateNote } from "../../../utils/types.ts";
+import { LocalNote } from "../../../utils/types.ts";
 
 interface NoteTreeProps {
-  notes: AggregateNote[];
+  notes: LocalNote[];
   selectedNote: number;
   setSelectedNote: (note: number) => void;
 }

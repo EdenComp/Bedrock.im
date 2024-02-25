@@ -5,10 +5,10 @@ import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import remarkRehype from "remark-rehype";
 import type { ReactElement } from "react";
-import { AggregateNote, NoteInput } from "../../utils/types.ts";
+import { LocalNote, NoteInput } from "../../utils/types.ts";
 
 interface BodyProps {
-  notes: AggregateNote[];
+  notes: LocalNote[];
   selectedNote: number;
   input: NoteInput;
   setInput: (input: NoteInput) => void;
