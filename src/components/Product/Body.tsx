@@ -15,14 +15,6 @@ interface BodyProps {
 }
 export default function Body({ notes, selectedNote, setNotes, actualNotes, setActualNotes }: BodyProps): ReactElement {
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (selectedNote != -1) {
-      let newNotes = [...notes]
-      newNotes[selectedNote].title = e.target.value
-      setNotes(newNotes)
-    }
-  };
-
   const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (selectedNote != -1) {
       let newNotes = [...notes]

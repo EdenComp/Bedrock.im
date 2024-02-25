@@ -1,6 +1,6 @@
 import Text from "../../../Basic/Text.tsx";
-import {NoteStatus} from "../../../../types/NoteStatus.ts";
-import {Note} from "../../../../types/NoteMockUp.ts";
+import {NoteStatus} from "src/types/NoteStatus.ts";
+import {Note} from "src/types/Note.ts";
 
 interface DisplayNoteTreeProps {
   note: Note,
