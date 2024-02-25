@@ -1,12 +1,11 @@
 import { AlephContext } from "../context/AlephContext.tsx";
 import { encryptedBase64ToObject, objectToEncryptedBase64 } from "../utils/crypto.ts";
-import { AggregateNote, AggregateNoteSchema, LocalNote } from "../utils/types.ts";
+import { AggregateNoteSchema, LocalNote } from "../utils/types.ts";
 import { loadAggregate } from "../utils/aleph.ts";
 import { z } from "zod";
 import { useCallback, useContext, useState } from "react";
 
 export interface Notes {
-  aggregateNotes: AggregateNote[];
   notes: LocalNote[];
 }
 
@@ -26,8 +25,15 @@ export default function useNotes(): Notes | null {
     );
 
     setResult({
-      aggregateNotes,
-      notes: [],
+      notes: aggregateNotes.map((note) => ({
+        data: {
+          ...note.data,
+          body: "",
+        },
+        secret: note.secret,
+        status: "saved",
+        hash: note.hash,
+      })),
     });
   }, [alephAccount]);
 
