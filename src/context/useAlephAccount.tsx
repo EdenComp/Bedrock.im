@@ -37,7 +37,7 @@ export const AlephContextProvider = ({ children }: PropsWithChildren) => {
       disconnect()
       console.error(e)
     }
-  }, []);
+  }, [disconnect]);
 
   useEffect(() => {
     if (!account.isConnected) {
